@@ -1,0 +1,87 @@
+Docker Network commands :
+---------------------------------
+Step #1
+
+1)docker network ls
+2)docker run -itd --name=test ubuntu
+3) docker network inspect bridge
+4)docker network disconnect bridge test
+5)docker network inspect bridge
+  
+6)
+  docker network create my_bridge
+  (or)
+  docker network create -d bridge bridge-2
+  (or)
+  docker network create bridge-3 --driver=bridge
+
+docker network create --driver=bridge --subnet=192.168.10.0/24 my_bridge4
+
+7)docker network connect my_bridge test
+8)docker images
+9) docker container ps
+10)docker network inspect my_bridge
+11)docker run -d --net=my_bridge --name web  <image-name>
+12) docker network prune
+13) docker network rm <network-name>
+   Note: network should not contain any containers
+ ================================================
+Step#2
+
+docker run -it -d --name=myserver --network my_bridge -p 83 hshar/webapp
+docker network inspect my_bridge
+ docker ps
+ docker exec -it  438ddb48c388 bash
+apt-get install iputils-ping -y
+ping <another container ip address>
+
+
+docker run -d --net=my_bridge --name db training/postgres
+docker inspect --format='{{json .NetworkSettings.Networks}}'  db
+
+docker run -d --name web training/webapp python app.py
+docker inspect --format='{{json .NetworkSettings.Networks}}'  web
+
+Then, get the IP address of your web
+ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' os1
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+docker network ls
+
+ip addr show
+
+docker image pull httpd 
+docker image ls
+
+docker container run -d  --name myapache -p 80:80 httpd
+
+docker container ps
+
+docker network inspect bridge
+
+>bridge network is default network
+>It access to the external server as well as docker server.
+>docker network create myNetwork
+>docker network inspect myNetwork
+>docker image pull redis:latest
+>//eg : docker network create myNetwork --driver=host
+>docker network ls
+>docker image pull <image-name>
+>docker container run -d --name myredis --network myNetwork redis:alpine
+>docker network inspect myNetwork
+>docker container run -p --name myapp  --network muNetwork -p 8080:80 <image-name/id>
+>docker container ps -a
+>
+
+>To remove the my_bridge1 network
+ docker network rm my_bridge1
+
+>To Remove un used networks 
+docker network prune
+
+>To remove all running contaniers
+ docker container  rm -f $(docker container ps -aq)
+------------------------------------------
+(https://docs.docker.com/engine/tutorials/networkingcontainers/)

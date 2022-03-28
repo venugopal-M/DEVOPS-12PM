@@ -1,0 +1,218 @@
+Req :  Deploying artifact into Tomcat Server using Jenkins Scripted Pipeline
+
+---------------------------------------------------------------------------------------
+1)Setup Jenkins Server on ubuntu18.04 (Master Node)
+
+	i)Launch EC2 instance ubuntu 18.04
+	
+
+sudo apt-get update -y
+sudo apt-get install openjdk-8-jdk -y
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update -y
+sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys  9B7D32F2D50582E6
+sudo apt-get update -y
+sudo apt-get install jenkins -y
+
+3)open browser http://public-ip:8080
+
+4)cat /var/lib/jenkins/secrets/initialAdminPassword
+
+[   Note uninstall Jenkins : 
+		sudo service jenkins stop
+		sudo apt-get remove --purge jenkins ]
+
+	
+	ssh-keygen
+	cd .ssh
+	ls
+	cat id_rsa.pub
+		copy text from here
+	nano authorized_keys
+		paste here
+	cd
+	sudo nano /etc/sudoers
+	 jenkins ALL=(ALL) NOPASSWD: ALL
+
+
+#How to Install Apache Maven on Ubuntu 18.04
+
+1.sudo add-apt-repository ppa:webupd8team/java
+2.sudo apt-get update -y
+3.sudo apt-get install oracle-java8-installer
+4.java -version
+5.cd /opt/
+6. wget http://apache.mirrors.pair.com/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+7.sudo tar -xvzf apache-maven-3.6.3-bin.tar.gz
+8.sudo mv apache-maven-3.6.3 maven 
+--Set Up Environment Variables
+
+8.1) sudo tar -xvzf apache-maven-3.6.3-bin.tar.gz
+8.2) sudo mv apache-maven-3.6.3 maven
+9.sudo nano /etc/profile.d/mavenenv.sh
+
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+	
+10.sudo chmod +x /etc/profile.d/mavenenv.sh
+11.source /etc/profile.d/mavenenv.sh
+12.apt-get install maven -y
+12.mvn --version
+13.whereis mvn
+
+2)Install Maven plugin and ssh-agent plugin
+
+	Jenkins > Manage Jenkins > Global ToolConfiguration >Maven Installation
+
+	Add Maven 
+
+	Name : apache-maven-3.6.3
+	MAVEN_HOME	 : /opt/maven/apache-maven-3.6.3
+
+Jenkins > Manage Plugins > SSH agent > install without restart
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Step-2 : Launch Amazon EC2 (AMI Linux 2) As Jenkins WorkerNode
+
+#How to install tomcat server on 8.5 (link : https://acloudxpert.com/install-tomcat-on-amazon-linux/)
+-Install Tomcat 
+-Modify Port Number
+-Add Manger Credentials
+
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+--------------------importent--------------------------------
+cd .ssh
+nano authorized_keys
+     copy id_rsa.pub file text here (from jenkins ServerNode)
+     Save and Exit
+cd
+sudo su -
+cd .ssh
+nano authorized_keys
+     copy id_rsa.pub file text here (from jenkins ServerNode)
+     Save and Exit
+cd
+---------------------------------------------------------------
+# create tomcat directory
+        
+	cd /opt
+	wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz
+	tar -xvzf /opt/apache-tomcat-8.5.35.tar.gz
+	cd apache-tomcat-8.5.35
+	cd bin
+	chmod +x /opt/apache-tomcat-8.5.35/bin/startup.sh shutdown.sh
+
+	ln -s /opt/apache-tomcat-8.5.35/bin/startup.sh /usr/local/bin/tomcatup
+	ln -s /opt/apache-tomcat-8.5.35/bin/shutdown.sh /usr/local/bin/tomcatdown
+	tomcatup
+
+	http://<Public_IP>:8080
+	--To change Tomcat Port Number 
+
+	cd /opt/apache-tomcat-8.5.35/conf
+
+	nano server.xml
+          <Connector port="8090" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
+
+
+
+	find / -name context.xml
+
+	-- do same in manager,host-manager 
+
+	vi /opt/apache-tomcat-8.5.35/webapps/manager/META-INF/context.xml
+
+	 <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+	cd
+	cd  /opt/apache-tomcat-8.5.35/conf
+	nano tomcat-users.xml
+	Update users information in the tomcat-users.xml file goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+ 	<role rolename="manager-gui"/>
+ 	<role rolename="manager-script"/>
+ 	<role rolename="manager-jmx"/>
+ 	<role rolename="manager-status"/>
+ 	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ 	<user username="deployer" password="deployer" roles="manager-script"/>
+ 	<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+
+ 	cd  /opt/apache-tomcat-8.5.35/bin
+ 	./shutdown.sh
+	./startup.sh
+
+Open Browser: 
+	http://<Public_IP>:8090
+	manager login credentials : tomcat/s3cret
+
+--------terminal---------
+sudo su - 
+cd /opt/apache-tomcat-8.5.35/bin
+ps -ef | grep tomcat
+./shutdown.sh
+ps -ef | grep tomcat
+./startup.sh
+ps -ef | grep tomcat
+
+ chown -R ec2-user:ec2-user /opt
+-----------------------------
+
+
+pipeline {
+    agent any
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: '2f663736-522f-4420-9da2-dcaf697631e9', url: 'https://github.com/shashikanth-t/mwebrepo.git'
+                echo 'Code Checkout done sucessfully.'
+            }
+			}
+            stage('Code build ') {
+            steps {
+            sh 'mvn clean install'
+            echo 'Code build done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		sshagent(['deploy_user']) {
+		sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war  ec2-user@18.209.28.105:/opt/apache-tomcat-8.5.35/webapps"
+						}
+				}
+				
+			}
+        }
+    }
+
+
+Login to jenkins server /var/lib/jenkins/workspace
+apt-get install tree
+tree pjob1
+
+scp <source_file> username@public-IP:<dest_path>
+
+While creating code_deploy stage 
+
+Add credentials deploy_user with private Key
+
+ssh Add Agent
+
+SSH Username with private key(.pem file)
+ID : deploy_user
+Description : deploy_user
+username :ec2-user
+private : .pem file text
+
+
+Note Before Executing this job configure 
+
+Jenkins: Git credentials
+sshagent :ec2-user(deploy_user)
+
+

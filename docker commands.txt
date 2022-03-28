@@ -1,0 +1,243 @@
+apt-get install docker.io -y
+
+docker --version
+
+docker pull ubuntu
+
+docker images
+
+docker run -it --name web4 -p 84:80 -d venugopal0975/knights
+
+Note: -d demanized mode means run in background
+
+docker container ps
+
+docker exec -it (CONTAINER ID) bash
+ex : docker exec -it 76971f8eb701 bash
+
+docker commit 384b179180e8 venugopal0975/digital ------docker images
+
+apt-get install docker.io -y
+
+cp -r * /var/www/html /root/knights
+
+docker ps -a
+
+docker ps
+
+docker stop (CONTAINER ID)
+
+docker start (CONTAINER ID)
+
+docker rm (CONTAINER ID)
+
+docker rmi (image id)
+doc
+docker rm -f (CONTAINER ID)
+
+docker login
+
+docker push (user name /image name) 
+
+---------------------------------------------
+DOCKER File 
+-------
+FROM ubuntu:16.04
+RUN apt-get update -y
+RUN apt-get install apache2 -y
+ENTRYPOINT apachectl -D FOREGROURD
+ADD . /var/www/html
+
+--------
+docker build. -t filename
+-------------
+
+without permistion to clone for the git hub account from the user
+------------------------
+
+FROM ubuntu:16.04
+RUN apt-get update -y &&\
+    apt-get -y install apache2 && \
+    apt-get install -y git
+RUN cd /var/www/html && \
+    git clone https://github.com/venugopal0975/digital.git
+ENTRYPOINT apachectl -D FOREGROUND
+---------------------
+
+
+docker build . -t filename
+-------------
+
+
+docker kill (container id)----- to stop the container
+
+docker container rm -f $(docker container ps -aq)--------multipul ccontainer remove at a time
+----------
+docker - compose logs
+
+docker info----- deteils information comes
+
+docker log container id --details
+
+--------------docker attach-----
+docker info
+
+docker run --help
+
+docker run -dit --name centos --hostname=centos centos /bin/bash
+
+docker attach centos
+
+docker start centos
+
+linux top
+
+copying file from docker container to local machine
+
+ docker cp centos:/etc/passwd /root/demo2/centos.passwd
+
+---------------------------------------
+
+1.docker file --multipule CMD
+
+CMD statement1
+CMD STATEMENT2
+
+O/P : Statement2
+
+
+2. docker file --multiple CMD --- runtime args
+
+CMD statement1
+CMD STATEMENT2
+
+docker run -it app echo 'welcome to aws'
+o/p welcome to aws 
+
+3.docker file --- multiple entrypoint
+
+ENTRYPOINT statement1
+
+ENTRYPOINT statement2
+
+O/P : statement2
+
+4.Docker file --- multiple entrypoint---runtime args
+
+ENTRYPOINT statement1
+
+ENTRYPOINT statement2
+
+docker run -it app2 'welcome to aws'
+o/p: statement2 welcome to aws
+
+5.Docker file --- multiple entrypoint---runtime args
+
+ENTRYPOINT statement1
+
+CMD statement1
+
+o/p: statement2 welcome to aws  welcome to devops
+
+------------------------------------------------------
+
+docker exec containerid bash
+
+docker attach os1
+--------------------------------------
+CMD
+
+Dockerfile1
+
+
+FROM ubuntu:16.04
+RUN apt-get update -y
+CMD echo "hello world"
+CMD echo "welcome To AWS"
+
+docker build . -t app1
+
+docker run -it app1
+
+docker run -it app1 echo "welcome to docker"
+
+Dockerfile2
+
+FROM ubuntu:16.04
+RUN apt-get update -y
+ENTRYPOINT [ "echo", "hello world"]
+ENTRYPOINT ["echo", "welcome To AWS"]
+
+docker build . -t app2
+
+docker run -it app2
+
+docker run -it app2 echo "welcome to docker"
+
+summary:
+------
+CMD overriden
+
+Entrypoint overriden
+
+Entrypoint and CMD appendable
+
+---------------- docker volume & bindmount --------
+docker volume create vol-1
+
+docker volume ls
+
+docker run -it -p 83:80 --mount "source=vol-1,destination=/var/www/html" --name web1 -d digital
+
+docker volume inspect vol-1 ----howmuch storage files utilized to the volume 
+
+docker run -it -v /root/demo:/var/www/html --name web3 -p 86:80 -d knights----- bindmount------one time one way direction( second time two way direction)
+
+docker run -it -p 82:80 --name web4 -d knights
+
+---------------------------------------------------docker swarm-----
+
+docker swarm init --advertise-addr=10.50.3.193-------token genarated ---go to putty & run 
+
+docker swarm leave
+
+docker node ls
+
+docker swarm join-token worker------token missing again recollect the tocken
+
+docker service create --name nginx_srv --replicas 3 -p 83:80 nginx
+
+docker ps
+
+docker rm -f (master node/worker node id)----- change to the status 
+
+docker service scale nginx_srv=10------to increses to the container to equal to worker noads to marster nodes
+
+docker service scale nginx_srv=1 ------ decreses to the containers down the services
+
+docker service create --name digital_srv --replicas 3 -p 85:80 venugopal0975/digital
+
+use this link : https://docs.docker.com/engine/reference/commandline/swarm/
+
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

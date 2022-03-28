@@ -1,0 +1,146 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('stage-1 ') {
+            steps {
+               
+                echo 'stage-1 done sucessfully.'
+            }
+			}
+            stage('stage-2 ') {
+            steps {
+           
+            echo 'stage-2 done sucessfully.'
+            }
+            }
+	    stage(stage-3 ') {
+            steps {
+		
+		echo 'stage-3  done sucessfully.'
+		}
+				
+			}
+        }
+    }
+
+---------------------------------------------------------------------------------------
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'stage-1 done sucessfully.'
+            }
+		}
+            stage('Code build ') {
+            steps {
+            
+            echo 'stage-2 done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		
+		echo 'stage-3 done sucessfully.'
+		}
+				
+			}
+	}
+    }
+
+
+--------------------------------------------
+
+pipeline {
+    agent any
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
+    stages {
+        stage('Code Checkout') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'code checkout done sucessfully.'
+            }
+		}
+            stage('Code Build') {
+            steps {
+            sh 'mvn clean install'
+            echo 'code build done sucessfully.'
+            }
+            }
+	    stage('Code Deploy') {
+            steps {
+		sshagent(['deploy_user']) {
+   		sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war  ec2-user@18.222.132.97:/opt/apache-tomcat-9.0.59/webapps"
+		  }
+		echo 'Stage-3 done sucessfully.'
+		}
+				
+			}
+        }
+    }
+--------------------------------------------------------------------------------------------------------------
+note : to install the maven package
+--------------------------------------------------
+pipeline {
+    agent any
+    
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'Code Checkout done sucessfully.'
+            }
+		}
+            stage('Code build ') {
+            steps {
+            sh 'mvn clean install'
+            echo 'Code build done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		
+		echo 'stage-3 done sucessfully.'
+		}
+				
+			}
+	}
+    }
+
+
+-------------------------------------------------
+
+pipeline {
+    agent any
+    stages {
+    stage('Code Checkout ') {
+    steps {
+           git branch: 'main'url: 'https://github.com/venugopal-M/jenkins-ansible.git'
+           } 
+   
+    }
+    }
+   }   
+-------
+pipeline{
+ agent any
+ stages{
+ stage('code checkout'){
+  steps{
+       git branch: 'main', url: 'https://github.com/venugopal-M/jenkins-ansible.git'
+       }
+ }
+ stage('Execute Ansible'){
+  steps{
+     ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: 'dhost.inv', playbook: 'apache.yml'
+       
+      }
+  }
+  }
+ }

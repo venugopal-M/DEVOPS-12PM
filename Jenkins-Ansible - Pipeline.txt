@@ -1,0 +1,84 @@
+CI/CD using GIT --- Jenkins ---- Ansible   
+
+===========================Environment Setup===========================================================
+
+Step#1 : Install Jenkins Server on Amazon Linux2
+
+1)Launch AmazonLinux2 as Jenkins Server
+
+a)sudo yum -y update
+
+b)sudo amazon-linux-extras install java-openjdk11
+
+c)java --version
+
+d)
+sudo tee /etc/yum.repos.d/jenkins.repo<<EOF
+[jenkins]
+name=Jenkins
+baseurl=http://pkg.jenkins.io/redhat
+gpgcheck=0
+EOF
+
+e)sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+f)sudo yum repolist
+
+g)sudo yum install jenkins
+
+h)sudo systemctl start jenkins
+
+i) systemctl status jenkins
+
+http://[serverip_ip_or_hostname]:8080
+
+=>Install Git on Jenkins Server
+
+j)yum install git -y
+
+
+=>Install Ansible on Jenkins Server
+
+k)
+  sudo yum-config-manager --enable epel
+  sudo amazon-linux-extras install ansible2
+  ansible --version
+  which ansible
+
+2)Launch Amazon Linux2  as Jenkins Worker Node
+
+
+================================Jenkins Pipeline Setup====================================================
+
+1)Login to Jenkins DashBoard
+
+2) Install Ansible plugin
+  Go to GlobalTool configuration 
+  Ansible  : ansible
+  ansible executable directory : /usr/bin/       (which ansible)
+  Save
+
+3)Create pipeline job : ansible-demo
+
+4)pipeline script
+
+ pipeline{
+ agent any
+ stages{
+ stage('code checkout'){
+  steps{
+       git branch: 'main', url: 'https://github.com/shashikanth-t/jenkins-ansible.git'
+       }
+ }
+ stage('Execute Ansible'){
+  steps{
+     ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dhost.inv', playbook: 'apache.yml'
+       
+      }
+    }
+}
+
+
+Developer will commit his changes to GIT that triggers Jenkins pipeline job  it is going to build maven 
+and it is going to build docker image,upload docker image to docker hub.
+Using Ansible playbook 	 Deploy docker container to a development Server

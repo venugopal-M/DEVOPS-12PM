@@ -1,0 +1,355 @@
+
+slave1 ansible_ssh_host=10.50.1.79
+
+ansible-playbook pbook3.yml --syntax-check
+
+
+------------------------------------------------------------------- 
+---
+-
+  become: true
+  hosts: slave1
+  name: play1
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache Server"
+    -
+      name: "Start Apache Server"
+      service: "name=apache2 state=restarted"
+
+-------------------------------------------------------------------
+
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: "/home/ubuntu/{{ item }}"
+        src: "{{ item }}"
+      name: "copy file to remote host"
+      with_items: 
+        - test_file1
+        - test_file2
+        - test_file3
+
+--------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: /home/ubuntu/test_dir
+        src: test_dir/
+      name: "copy dir to remote host"
+
+---------------------------------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      fetch: 
+        dest: feteched1/
+        src: "/home/ubuntu/{{ item }}"
+      name: "fetch test_file"
+      with_items: 
+        - test_file1
+        - test_file2
+--------------------------------------------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      fetch: 
+        dest: feteched2/
+        flat: true
+        src: "/home/ubuntu/{{ item }}"
+      name: "fetch test_file"
+      with_items: 
+        - test_file1
+        - test_file2
+
+----------------------------------------------------------
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+     
+      name: "Stop apache2 Services"
+      service: 
+        name: apache2
+        state: stopped
+
+-------------------------------------------------------------
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+     
+      name: "Stop apache2 Services"
+      service: 
+        name: apache2
+        state: started
+
+---------------------------------------------------------------
+//UnInstalling apache2 package
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: apache2
+        state: absent
+      name: "Uninstall apache2"
+
+--------------------------------------------------------------------
+copy dir
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: /home/ubuntu/demo10
+        src: demo10/
+      name: "copy dir to remote host"
+
+---------------------------------------------------------------
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      name: " Adding Users"
+      user: 
+        comment: venu
+        createhome: true
+        name: venu
+        passswd: venu@123
+        shell: /bin/bash
+    - 
+      copy: 
+        content: "its a confidential Ageement between an employee & employer\n"
+        dest: /home/venu/ageement
+      name: "copying confidential Ageement"
+
+------------------------------------------------------------------------------------------------
+
+---
+-
+  hosts: slave1
+  tasks:
+
+  - name: "Remove the existing dir"
+    shell: sudo rm -rf /var/www/html
+  - name: "Create new dir"
+    shell: sudo mkdir /var/www/html
+
+  -
+      git:
+         repo: "https://github.com/shashikanth-t/digital"
+         dest: /var/www/html
+         update: yes
+      become: yes
+      become_user: root
+      name: "Ensure repo is up-to-date"
+
+Note:install git package on remote machine
+
+---------------------------------------------------------------------------------------------
+
+#1
+
+--- 
+- 
+  become: true
+  hosts: slave2
+  tasks: 
+    - 
+      name: "Install packages"
+      yum: 
+        name: httpd
+        state: present
+    - 
+      name: "Start Apache Server"
+      sevevice: 
+        enabled: true
+        name: httpd
+        state: started
+    - 
+      copy: 
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+
+------------------------------------------------------------------------------------------------------
+#2
+
+---
+-
+  become: true
+  hosts: slave1
+  tasks:
+    -
+      name: "Install pacages"
+      tags:
+        - install
+      apt:
+        name: apache2
+        state: present
+    -
+      name: "Start Apache Server"
+      service:
+        enabled: true
+        name: apache2
+        state: started
+      tags:
+        - start
+    -
+      copy:
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+      tags:
+        - deploy
+
+----------------------------------------------------------------------------------------------------------
+jenkins
+-------------
+---
+ - hosts: slave1
+
+   tasks:
+    - name: ensure the jenkins apt repository key is installed
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+      become: yes
+
+    - name: ensure the repository is configured
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+      become: yes
+
+    - name: ensure jenkins is installed
+      apt: name=jenkins update_cache=yes
+      become: yes
+
+    - name: ensure jenkins is running
+      service: name=jenkins state=started
+
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+java
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        update_cache: true
+      become: true
+      name: "Update APT package manager repositories cache"
+    - 
+      apt: 
+        name: "{{ packages }}"
+        state: present
+      become: true
+      name: "Install Java using Ansible"
+      vars: 
+        packages: 
+          - openjdk-11-jdk
+
+-------------------------------------------------------------------------------------------
+play1.yml
+Templates
+
+--- 
+- 
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      become: true
+      name: "template file on to remote hosts"
+      template: 
+        dest: /etc/my_app.conf
+        src: my_app.conf.j2
+  vars: 
+    env: staging
+-----------------------------------------------------------------------------------
+play2.yml
+
+--- 
+- 
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      become: true
+      name: "template file on to remote hosts"
+      template: 
+        dest: /etc/my_app.conf
+        group: root
+        mode: 0600
+        owner: root
+        src: my_app.conf.j2
+  vars: 
+    env: staging
+------------------------------------------------------------------------
+play3.yml
+--- 
+- 
+  hosts: slave1
+  name: play1
+  vars: 
+    env: Developement
+    my_app_version: v1.1.2
+  tasks: 
+    - 
+      name: "template file on to remote hosts"
+      template: 
+        dest: "/etc/{{ item }}"
+        group: root
+        mode: 0600
+        owner: root
+        src: "{{ item }}.j2"
+      become: true
+      with_items:
+       - my_app.conf
+       - my_app-release
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+#1
+--- 
+- 
+  become: true
+  hosts: slave2
+  tasks: 
+    - 
+      name: "Install packages"
+      yum: 
+        name: httpd
+        state: present
+    - 
+      name: "Start Apache Server"
+      sevevice: 
+        enabled: true
+        name: httpd
+        state: started
+    - 
+      copy: 
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+
+#2
+
+---
+-
+  become: true
+  hosts: slave1
+  tasks:
+    -
+      name: "Install pacages"
+      tags:
+        - install
+      apt:
+        name: apache2
+        state: present
+    -
+      name: "Start Apache Server"
+      service:
+        enabled: true
+        name: apache2
+        state: started
+      tags:
+        - start
+    -
+      copy:
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+      tags:
+        - deploy
+
+
+
+
+ ansible-playbook pb1.yml --tags=install
+
+ ansible-playbook tdemo.yml --tags=start
+
+ ansible-playbook tdemo.yml --tags=deploy
+
+ansible-playbook pb1.yml --tags=start --tags=deploy

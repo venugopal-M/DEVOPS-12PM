@@ -1,0 +1,211 @@
+kubernetes Installation : kubeadm 1.20 :
+
+1) Launch kubernetesMaster (ubuntu 20.04,t2.medium) and Kubernetes WN (ubuntu 20.04,t2.micro)
+
+2)https://docs.docker.com/engine/install/ubuntu/
+
+3)Set up the repository
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+4)
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+5)
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+6)
+ sudo apt-get update
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+7)
+apt-cache madison docker-ce
+
+9)
+sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
+
+sudo apt-get install docker-ce=5:19.03.12~3-0~ubuntu-focal  containerd.io
+
+10)
+sudo docker run hello-world
+11)
+service docker restart
+12)
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+13)
+echo "deb http://apt.kubernetes.io/kubernetes-xenial main" /etc/apt/sources.list.d/kubernetes.list
+14)
+apt-get update 
+15)
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+16)
+sudo apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00
+
+17) 
+kubeadm init --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU
+
+token : paste this token on workerNode
+
+kubeadm join 192.168.1.38:6443 --token wyvi94.7an5j71dkd0n64d1 \
+    --discovery-token-ca-cert-hash sha256:001274a7163182957fd7325f7eb0348bdc14fa71f35e6162febb8871c1f33911
+
+
+18)
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+19)
+sudo kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+20)
+kubectl get nodes
+
+21)
+kubectl get pods --all-namespaces
+
+Master :
+1)nano nginx.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+
+
+kubectl create -f nginx.yml
+kubectl get pods
+
+kubectl  get po  --all-namespaces
+kubectl get po -o wide
+
+-----------------------------------------------
+kubectl create service clusterip nginx --tcp=80:80
+curl <cluster-ip-address>
+(or)
+kubectl delete service nginx
+kubectl create service nodeport nginx --tcp=80:80
+(or)
+kubectl delete service nginx
+kubectl create service loadbalancer nginx --tcp=80:80
+
+kubectl create service clusterip httpd --tcp=82:80
+curl 10.97.82.35:82
+-------------------------------------------------
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.35.0/deploy/static/provider/baremetal/deploy.yaml
+
+
+demo1.yml
+----------------------------------------------
+--- 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata: 
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: demo-ingress
+spec: 
+  rules: 
+    - 
+      http: 
+        paths: 
+          - 
+            backend: 
+              serviceName: nginx
+              servicePort: 80
+            path: /nginx
+          - 
+            backend: 
+              serviceName: httpd
+              servicePort: 82
+            path: /httpd
+
+-----------------------------------------------
+
+kubectl create -f demo1.yml
+kubectl get ing
+kubectl  get svc  --all-namespaces
+kubectl get svc -n ingress-nginx
+
+
+
+
+ Refer below link for K8S Dashboard.
+ https://github.com/kubernetes/dashboard
+
+ 1) kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+ 2) kubectl get svc -n kubernetes-dashboard
+ 3) kubectl edit svc -n kubernetes-dashboard
+    Note: change type from clisterIP to Nodeport
+ k8s-app: kubernetes-dashboard
+ sessionAffinity: None
+ type: NodePort
+ status:
+ loadBalancer: {}
+ kind: List
+ metadata: {}
+
+ 4)Now Generate token :
+   i)create two yml files (sa.yml,crb.yml)
+
+#create service account
+ sa.yml
+ -------
+--- 
+apiVersion: v1
+kind: ServiceAccount
+metadata: 
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+#Bind ClusterAdmin Role to the service account
+
+ crb.yml
+ --------
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: ClusterRoleBinding
+ metadata:
+   name: admin-user
+ roleRef:
+   apiGroup: rbac.authorization.k8s.io
+   kind: ClusterRole
+   name: cluster-admin
+ subjects:
+ - kind: ServiceAccount
+   name: admin-user
+   namespace: kubernetes-dashboard
+
+   >kubectl create -f sa.yml
+   >kubectl create -f crb.yml
+   >kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+
+   kubectl -n kubernetes-dashboard get service kubernetes-dashboard
+ on Browser
+   k8s-master-public-ip:Nodeport
+   copy token from terminal and paste on browser

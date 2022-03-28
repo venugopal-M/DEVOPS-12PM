@@ -1,0 +1,368 @@
+What is Ansible ?
+------------------------
+Ansible is a opensource Automation Platform.
+It is simple,efficient and powerfull.
+Ansible can perform :
+1.Configuration Management
+2.Application Deployment
+3.Task Automation
+4.IT Orchestration
+
+Ansible is available for free and runs on Linux,Mac or BSD.
+Ansible also has an enterprise product called "Ansible Tower". 
+
+
+Why do we use Ansible ?
+-----------------------------
+1)Ansible is an open source
+2)Agentless
+3)Developed using python
+4)Ansible uses SSH for the operations
+5)System requirement is very low.
+6)Light weight and quick deployment
+7)Ansible usses YAML Syntax in configuration files.
+8)Larger community
+
+
+
+Configure Master - Slave :
+--------------------------------
+
+1)Launch 2 EC2 ubuntu Instance with user data
+
+#! /bin/bash
+sudo su
+cd
+sudo apt-get update –y
+sudo apt-get install python -y
+
+2)Login to master
+apt-get update -y
+apt-get install ansible -y
+ansible --version
+
+2)for Password less authentication run below commands in master
+
+a)ssh-keygen -t rsa -b 4096
+b)cd .ssh
+c)cat  id_rsa.pub
+ note:copy the text from pub file
+
+4)Login to remote/slave machine
+a)python --version
+b)cd .ssh
+c)nano authorized_keys
+  note:paste the copied text here
+  
+5)Login to master
+  a)ssh <private-ip-address>
+
+#How to configure Slave/Remote machines
+
+1)Login to master machines
+a)cd /etc/ansible/
+b)ls
+c)nano hosts
+
+  [webservers]
+  slave1 ansible_ssh_host=<slave1-private-ip-address>
+  slave2 ansible_ssh_host=<slave2-private-ip-address>
+
+d)ansible -m ping slave1
+e)ansible -m ping slave2
+f)ansible -m ping all
+
+
+Ad-hoc commands :
+----------------------
+1)To know uptime
+ansible webservers -m shell -a "uptime"
+
+2)To transfer File from Manager Node to Worker Node:
+ansible webservers -m copy -a "src=/home/shashi/testfile dest=/tmp/testfile"
+ansible webservers -m file -a "dest=/tmp/demo123 state=directory"
+
+3)To create directory in workernode (create user1 in worker node)
+  ansible test -m file -a "dest=/home/user1/demo mode=777 owner=user1 group=user1 state=directory"
+
+4)Deleting a directory in worker node
+  ansible webservers -m file -a "dest=/tmp/demo123 state=absent"
+
+Webserver(Tomcat) Installation and uninstallation:
+5)ansible slave2 -m yum -a "name=httpd state=present"
+  ansible slave2 -m service -a "name=httpd state=started"
+
+  ansible slave2 -m service -a "name=httpd state=stopped"  
+6)ansible slave2 -m yum -a "name=httpd state=absent"
+
+
+Ansible Playbooks :
+---------------------
+
+-Ansible Playbooks are writen in yaml/yml.
+-In yaml tabs are not allowed,it allows only spaces.
+-
+
+-create a new ansible-playbook 
+-get syntax check
+-run playbook (if we use default host file)
+- ansible-playbook  playbook1.yml  --syntax-check
+
+2)create a working directory
+
+a)mkdir ansible
+b)nano play.yaml
+========================================================================
+---
+-
+  become: true
+  hosts: slave1
+  name: play1
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache Server"
+    -
+      name: "Start Apache Server"
+      service: "name=apache2 state=restarted"
+-
+  become: true
+  hosts: slave2
+  name: play2
+  tasks:
+    -
+      name: "Install httpd Server"
+      yum: "name=httpd state=latest"
+    -
+      name: "Start httpd Server"
+      service: "name=httpd state=restarted"
+
+
+=========================================================================
+Ex#1 :  playbook1.yml
+
+---
+-
+  hosts: slave1
+  name: play1
+  sudo: true
+  tasks:
+    -
+      apt: "name=nginx state=latest"
+      name: "Install nginx"
+-
+  hosts: slave2
+  name: play2
+  sudo: true
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache"
+
+
+e)ansible-playbook play1.yml --syntax-check
+  ansible-playbook play1.yml
+
+f)open browser and check with DNS Names
+      
+=================================================================================
+Ex#2 :playbook2.yml  //Installing httpd package
+
+--- 
+- 
+  hosts: test
+  tasks: 
+    - name: "Install a httpd package "
+      yum: "name=httpd state=latest"
+    - name: "Start a httpd service"
+      service: "name=httpd state=restarted"
+
+ansible-playbook  playbook2.yml --syntax-check
+ansible-playbook  playbook2.yml 
+
+==================================================================================
+Ex#3 :playbook3.yml  //UnInstalling httpd package
+--- 
+- 
+  hosts: test
+  tasks:
+    - name: "Start a httpd service"
+      service: "name=httpd state=stopped" 
+    - name: "Un Install a httpd package "
+      yum: "name=httpd state=absent"
+
+
+#ansible-playbook  playbook3.yml --syntax-check
+ ansible-playbook  playbook3.yml
+==================================================================================
+Ex#4 :playbook4.yml  #uninstall nginx 
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: nginx
+        state: absent
+      name: "Uninstall NginX"
+    - 
+      name: "Stop Nginx Services"
+      service: 
+        name: nginx
+        state: stopped
+==================================================================================
+
+Ex#5 playbook5.yml //install and run nginx
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: nginx
+        state: present
+      name: "Install NginX"
+    - 
+      name: "Start Nginx Services"
+      service: 
+        name: nginx
+        state: started
+
+
+Ansible Playbooks :
+---------------------
+
+-Ansible Playbooks are writen in yaml/yml.
+-In yaml tabs are not allowed,it allows only spaces.
+-
+
+-create a new ansible-playbook 
+-get syntax check
+-run playbook (if we use default host file)
+- ansible-playbook  playbook1.yml  --syntax-check
+
+2)create a working directory
+
+a)mkdir ansible
+b)nano play.yaml
+========================================================================
+---
+-
+  become: true
+  hosts: slave1
+  name: play1
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache Server"
+    -
+      name: "Start Apache Server"
+      service: "name=apache2 state=restarted"
+-
+  become: true
+  hosts: slave2
+  name: play2
+  tasks:
+    -
+      name: "Install httpd Server"
+      yum: "name=httpd state=latest"
+    -
+      name: "Start httpd Server"
+      service: "name=httpd state=restarted"
+
+
+=========================================================================
+Ex#1 :  playbook1.yml
+
+---
+-
+  hosts: slave1
+  name: play1
+  sudo: true
+  tasks:
+    -
+      apt: "name=nginx state=latest"
+      name: "Install nginx"
+-
+  hosts: slave2
+  name: play2
+  sudo: true
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache"
+
+
+e)ansible-playbook play1.yml --syntax-check
+  ansible-playbook play1.yml
+
+f)open browser and check with DNS Names
+      
+=================================================================================
+Ex#2 :playbook2.yml  //Installing httpd package
+
+--- 
+- 
+  hosts: test
+  tasks: 
+    - name: "Install a httpd package "
+      yum: "name=httpd state=latest"
+    - name: "Start a httpd service"
+      service: "name=httpd state=restarted"
+
+ansible-playbook  playbook2.yml --syntax-check
+ansible-playbook  playbook2.yml 
+
+==================================================================================
+Ex#3 :playbook3.yml  //UnInstalling httpd package
+--- 
+- 
+  hosts: test
+  tasks:
+    - name: "Start a httpd service"
+      service: "name=httpd state=stopped" 
+    - name: "Un Install a httpd package "
+      yum: "name=httpd state=absent"
+
+
+#ansible-playbook  playbook3.yml --syntax-check
+ ansible-playbook  playbook3.yml
+==================================================================================
+Ex#4 :playbook4.yml  #uninstall nginx 
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: nginx
+        state: absent
+      name: "Uninstall NginX"
+    - 
+      name: "Stop Nginx Services"
+      service: 
+        name: nginx
+        state: stopped
+==================================================================================
+
+Ex#5 playbook5.yml //install and run nginx
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: nginx
+        state: present
+      name: "Install NginX"
+    - 
+      name: "Start Nginx Services"
+      service: 
+        name: nginx
+        state: started
+
+===========================================================

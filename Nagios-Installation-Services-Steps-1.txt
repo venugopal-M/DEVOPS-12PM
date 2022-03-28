@@ -1,0 +1,152 @@
+Nagios Installation Steps:
+==================
+
+sudo apt-get update
+sudo apt-get install wget build-essential unzip openssl libssl-dev
+sudo apt-get install apache2 php libapache2-mod-php php-gd libgd-dev
+sudo adduser nagios
+sudo groupadd nagcmd
+sudo usermod -a -G nagcmd nagios
+sudo usermod -a -G nagcmd www-data
+cd /tmp
+wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
+ls
+tar xzf nagioscore.tar.gz
+cd /tmp/nagioscore-nagios-4.4.5/
+sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+sudo make all
+sudo make install
+sudo  make install-init
+sudo make install-commandmode
+sudo make install-config
+sudo make install-webconf
+sudo a2enmod rewrite
+sudo a2enmod cgi
+sudo ufw allow Apache
+sudo ufw reload
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+sudo service apache2 restart
+sudo start nagios
+sudo systemctl start nagios.service
+sudo apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+cd /tmp
+wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+tar zxf nagios-plugins.tar.gz
+cd /tmp/nagios-plugins-release-2.2.1/
+sudo ./tools/setup
+sudo ./configure
+sudo make
+sudo make install
+sudo systemctl start nagios.service
+sudo systemctl restart nagios.service
+sudo systemctl status nagios.service
+
+
+Master-Slave Config:
+
+On master:
+-----------
+cd /usr/local/nagios/etc/objects
+ls
+sudo nano localhost.cfg
+copy the host configurations
+sudo nano host1.cfg
+  define host {
+
+    use                     linux-server
+    host_name               slave1
+    alias                   nagios-nrpe
+    address                 34.217.88.72 //public ip of nagios-slave
+}
+cd ..
+ls
+sudo nano nagios.cfg
+  cfg_file=/usr/local/nagios/etc/objects/host1.cfg
+sudo systemctl restart nagios
+  Now slave1 will appear on browser
+
+http://54.202.172.165/nagios
+
+	nagiosadmin/nagiosadmin
+	
+
+on slave node:
+----------------
+sudo apt-get install nagios-nrpe-server nagios-plugins
+sudo nano /etc/nagios/nrpe.cfg
+  server_address=13.233.30.71 //Nagios Master Public ip address
+
+sudo /etc/init.d/nagios-nrpe-server restart
+
+
+Adding Services on Master Node:
+-------------------------------------
+
+ Login to Nagios Slave1 :
+   sudo apt-get install apache2
+   Check apache2 onece on browser
+
+login to master 
+
+   cd /usr/local/nagios/etc/objects
+   sudo nano host1.cfg
+   define service {
+
+       use                     generic-service           ; Name of service template to use
+       host_name               slave1
+       service_description     Check Apache
+       check_command           check_http
+   }
+
+    sudo systemctl restart nagios
+    #Now refresh the browser and check host and service
+
+    cd  /usr/local/nagios/etc/objects
+    ls
+    nano commands.cfg
+
+    define command {
+    command_name test_http
+    command_line $USER1$/check_http -I $HOSTADDRESS$ $ARG1$
+    }
+
+    sudo nano host1.cfg
+    define service{
+    use generic-service
+    host_name Slave1
+    service_description check Apache Test
+    check_command test_http
+    }
+
+    sudo nano templates.cfg
+     >search by generic-service
+     check_intervel 10
+     sudo nano host1.cgf
+     sudo nano host1.cfg
+
+define service {
+
+    use                     generic-service           ; Name of service template to use
+    host_name               slave1
+    service_description     Check Apache
+    check_command           test_http
+    check_interval          1  
+    retry_interval          1	
+}
+     sudo systemctl restart nagios
+
+
+
+
+Note :
+
+ Check on the browser .
+
+ Stop apache2 on slave node
+
+ check on browser "Services"
+
+Start apache2 on slave node
+
+  check on browser "Services"
+

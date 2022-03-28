@@ -1,0 +1,688 @@
+root@ip-10-50-0-7:~# git clone https://github.com/venugopal0975/demorepo1.git
+Cloning into 'demorepo1'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 599 bytes | 599.00 KiB/s, done.
+root@ip-10-50-0-7:~# ls
+demorepo1  snap
+root@ip-10-50-0-7:~# cd demorepo1/
+root@ip-10-50-0-7:~/demorepo1# ls
+README.md
+root@ip-10-50-0-7:~/demorepo1# ls -a
+.  ..  .git  README.md
+root@ip-10-50-0-7:~/demorepo1# touch 1.txt 2.txt
+root@ip-10-50-0-7:~/demorepo1# ls
+1.txt  2.txt  README.md
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        1.txt
+        2.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@ip-10-50-0-7:~/demorepo1# git add .
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   1.txt
+        new file:   2.txt
+
+root@ip-10-50-0-7:~/demorepo1# git commit -m "first commit"
+[main 7baaed5] first commit
+ Committer: root <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 1.txt
+ create mode 100644 2.txt
+root@ip-10-50-0-7:~/demorepo1# git config --global user.email"venu@gmail.com"
+root@ip-10-50-0-7:~/demorepo1# git config --global user.name "venu"
+root@ip-10-50-0-7:~/demorepo1# git log
+commit 7baaed500c321cd1c7cf602930073021e5e9f97a (HEAD -> main)
+Author: root <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 12:50:06 2022 +0000
+
+    first commit
+
+commit 5012de0c567b1b9892c4a8c996e629e3f5e0d66e (origin/master, origin/main, origin/HEAD)
+Author: venugopal0975 <99327872+venugopal0975@users.noreply.github.com>
+Date:   Mon Feb 14 17:45:46 2022 +0530
+
+    Initial commit
+root@ip-10-50-0-7:~/demorepo1# nano 1.txt
+root@ip-10-50-0-7:~/demorepo1# touch 3.txt
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   1.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        3.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+root@ip-10-50-0-7:~/demorepo1# git add .
+root@ip-10-50-0-7:~/demorepo1# git commit -m "second commit"
+[main d0263b0] second commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 1 insertion(+)
+ create mode 100644 3.txt
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+root@ip-10-50-0-7:~/demorepo1# git log
+commit d0263b0f2e0744fa571af3683db39002e83afbb1 (HEAD -> main)
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 12:54:05 2022 +0000
+
+    second commit
+
+commit 7baaed500c321cd1c7cf602930073021e5e9f97a
+Author: root <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 12:50:06 2022 +0000
+
+    first commit
+
+commit 5012de0c567b1b9892c4a8c996e629e3f5e0d66e (origin/master, origin/main, origin/HEAD)
+Author: venugopal0975 <99327872+venugopal0975@users.noreply.github.com>
+Date:   Mon Feb 14 17:45:46 2022 +0530
+
+    Initial commit
+root@ip-10-50-0-7:~/demorepo1# git remotr -v
+git: 'remotr' is not a git command. See 'git --help'.
+
+The most similar command is
+        remote
+root@ip-10-50-0-7:~/demorepo1# git remote -v
+origin  https://github.com/venugopal0975/demorepo1.git (fetch)
+origin  https://github.com/venugopal0975/demorepo1.git (push)
+root@ip-10-50-0-7:~/demorepo1# git branch
+* main
+root@ip-10-50-0-7:~/demorepo1# git push origin main
+Username for 'https://github.com': venugopal0975
+Password for 'https://venugopal0975@github.com':
+remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+fatal: Authentication failed for 'https://github.com/venugopal0975/demorepo1.git/'
+root@ip-10-50-0-7:~/demorepo1# git remote -v
+origin  https://github.com/venugopal0975/demorepo1.git (fetch)
+origin  https://github.com/venugopal0975/demorepo1.git (push)
+root@ip-10-50-0-7:~/demorepo1# git remote remove origin
+root@ip-10-50-0-7:~/demorepo1# git remote -v
+root@ip-10-50-0-7:~/demorepo1# git remote add origin git@github.com:venugopal0975/demorepo1.git
+root@ip-10-50-0-7:~/demorepo1# git remote -v
+origin  git@github.com:venugopal0975/demorepo1.git (fetch)
+origin  git@github.com:venugopal0975/demorepo1.git (push)
+root@ip-10-50-0-7:~/demorepo1# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa
+Your public key has been saved in /root/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:K7uHhXugTQZ3Gey61GNXqn2WrFRpOLPAzR9+oDUZ3+0 root@ip-10-50-0-7
+The key's randomart image is:
++---[RSA 3072]----+
+|       .         |
+|        o        |
+|       . o  .    |
+|    . ..+o ..= ..|
+|     o =S *oX . o|
+|      B =oo@ + . |
+|     *.B.=+.o.. E|
+|    . =o+.. =.   |
+|      o+  .+     |
++----[SHA256]-----+
+root@ip-10-50-0-7:~/demorepo1# cd
+root@ip-10-50-0-7:~# cd .ssh/
+root@ip-10-50-0-7:~/.ssh# ls
+authorized_keys  id_rsa  id_rsa.pub
+root@ip-10-50-0-7:~/.ssh# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2DcDGsGW7061QYhpMZ2f+W62kHoPC8aveEd2pyMk14QrdNvJEalFy12qUS3PAt687b9nLQl670sCSwISsRSHI9Ej1kH4bZEc14R4dK0+oWorI12lhn1UR52w7af14VmKiUGxSYLo8Umzbj1EZFVvTVZxuWQUi7TSbsoSG/sjLM8owBRfxXNNPEDeB3sTt0kkC6+cxeOHuXmfZVJO/uP84WXyb52wcO1GwtV8JkKjGNY6rDCzoiIDiXA7BQnwl22YTB/cQGN/jsTLrACLtFmeQ8NHg97UCWWvplkj1VlUBoJMgb8q+5pAWhtISFBxkQSYBT7Rgk6os2xauD9LEZvy/wJfXm6rugtr+IGW5rOoABv1ldCGJhPcVdMEZyUUw69HwwoePP0obAZtbKncmo1ze75ekiJUdWELcvkKzjRS+7cPoj574HMeF/qnB/QranHD83WwjKutQhag+0wNZmEcgRIwOvfNhV4Skk2/W3obnnEKxixdmIGExD9fRxY7jZBc= root@ip-10-50-0-7
+root@ip-10-50-0-7:~/.ssh# ^C
+root@ip-10-50-0-7:~/.ssh# cd
+root@ip-10-50-0-7:~# cd demorepo1
+root@ip-10-50-0-7:~/demorepo1# git push origin main
+The authenticity of host 'github.com (140.82.114.3)' can't be established.
+ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com,140.82.114.3' (ECDSA) to the list of known hosts.
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 601 bytes | 601.00 KiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To github.com:venugopal0975/demorepo1.git
+   5012de0..d0263b0  main -> main
+root@ip-10-50-0-7:~/demorepo1# ls
+1.txt  2.txt  3.txt  README.md
+root@ip-10-50-0-7:~/demorepo1# git branch
+* main
+root@ip-10-50-0-7:~/demorepo1#
+root@ip-10-50-0-7:~/demorepo1#
+root@ip-10-50-0-7:~/demorepo1#
+root@ip-10-50-0-7:~/demorepo1# git branch dev-1
+root@ip-10-50-0-7:~/demorepo1# ls
+1.txt  2.txt  3.txt  README.md
+root@ip-10-50-0-7:~/demorepo1# git branch
+  dev-1
+* main
+root@ip-10-50-0-7:~/demorepo1# git checkout dev-1
+Switched to branch 'dev-1'
+root@ip-10-50-0-7:~/demorepo1# git branch
+* dev-1
+  main
+root@ip-10-50-0-7:~/demorepo1# git checkout dev-2
+error: pathspec 'dev-2' did not match any file(s) known to git
+root@ip-10-50-0-7:~/demorepo1# git branch dev-2
+root@ip-10-50-0-7:~/demorepo1# git branch -D dev-2
+Deleted branch dev-2 (was d0263b0).
+root@ip-10-50-0-7:~/demorepo1# cd
+root@ip-10-50-0-7:~# mkdir demorepo-2
+root@ip-10-50-0-7:~# ls
+demorepo-2  demorepo1  snap
+root@ip-10-50-0-7:~# cd demorepo-2
+root@ip-10-50-0-7:~/demorepo-2# ls
+root@ip-10-50-0-7:~/demorepo-2# ls -a
+.  ..
+root@ip-10-50-0-7:~/demorepo-2# git init
+Initialized empty Git repository in /root/demorepo-2/.git/
+root@ip-10-50-0-7:~/demorepo-2# ls -a
+.  ..  .git
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+root@ip-10-50-0-7:~/demorepo-2# touch 1.txt
+root@ip-10-50-0-7:~/demorepo-2# git add 1.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "first commit"
+[master (root-commit) a2e9483] first commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 1.txt
+root@ip-10-50-0-7:~/demorepo-2# touch 2.txt
+root@ip-10-50-0-7:~/demorepo-2# git branch
+* master
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt
+root@ip-10-50-0-7:~/demorepo-2# git log
+commit a2e9483a174f6491cbb19504522a3cb336a627e2 (HEAD -> master)
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:17:23 2022 +0000
+
+    first commit
+root@ip-10-50-0-7:~/demorepo-2# git add 2.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "second commit"
+[master 259e4f6] second commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 2.txt
+root@ip-10-50-0-7:~/demorepo-2# git log
+commit 259e4f6c0adeea815bd2ab9d15249520cc060e0a (HEAD -> master)
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:19:27 2022 +0000
+
+    second commit
+
+commit a2e9483a174f6491cbb19504522a3cb336a627e2
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:17:23 2022 +0000
+
+    first commit
+root@ip-10-50-0-7:~/demorepo-2# touch 3.txt
+root@ip-10-50-0-7:~/demorepo-2# git add 3.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "third commit"
+[master d3f273a] third commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 3.txt
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt
+root@ip-10-50-0-7:~/demorepo-2# git log
+commit d3f273ac8f7b6e3e1da6bf7e5b2cc4a0336a5476 (HEAD -> master)
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:22:11 2022 +0000
+
+    third commit
+
+commit 259e4f6c0adeea815bd2ab9d15249520cc060e0a
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:19:27 2022 +0000
+
+    second commit
+
+commit a2e9483a174f6491cbb19504522a3cb336a627e2
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:17:23 2022 +0000
+
+    first commit
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+d3f273a (HEAD -> master) third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2# git revert d3f273a
+Removing 3.txt
+[master 20d41b2] Revert "third commit"
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 3.txt
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt
+root@ip-10-50-0-7:~/demorepo-2# git log
+commit 20d41b2c556e2e7bf7c52a35a94688c81effc845 (HEAD -> master)
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:25:19 2022 +0000
+
+    Revert "third commit"
+
+    This reverts commit d3f273ac8f7b6e3e1da6bf7e5b2cc4a0336a5476.
+
+commit d3f273ac8f7b6e3e1da6bf7e5b2cc4a0336a5476
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:22:11 2022 +0000
+
+    third commit
+
+commit 259e4f6c0adeea815bd2ab9d15249520cc060e0a
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:19:27 2022 +0000
+
+    second commit
+
+commit a2e9483a174f6491cbb19504522a3cb336a627e2
+Author: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Date:   Mon Feb 14 13:17:23 2022 +0000
+
+    first commit
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+20d41b2 (HEAD -> master) Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# git revert 20d41b2
+[master eb18749] Revert "Revert "third commit""
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 3.txt
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+eb18749 (HEAD -> master) Revert "Revert "third commit""
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# touch 4.txt
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2#
+root@ip-10-50-0-7:~/demorepo-2# git add 4.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "fourth commit"
+[master b2e92b1] fourth commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 4.txt
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+b2e92b1 (HEAD -> master) fourth commit
+eb18749 Revert "Revert "third commit""
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# git reset eb18749
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        4.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@ip-10-50-0-7:~/demorepo-2# git clean -f
+Removing 4.txt
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --online
+fatal: unrecognized argument: --online
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+eb18749 (HEAD -> master) Revert "Revert "third commit""
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# git reflog
+eb18749 (HEAD -> master) HEAD@{0}: reset: moving to eb18749
+b2e92b1 HEAD@{1}: commit: fourth commit
+eb18749 (HEAD -> master) HEAD@{2}: revert: Revert "Revert "third commit""
+20d41b2 HEAD@{3}: revert: Revert "third commit"
+d3f273a HEAD@{4}: commit: third commit
+259e4f6 HEAD@{5}: commit: second commit
+a2e9483 HEAD@{6}: commit (initial): first commit
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt
+root@ip-10-50-0-7:~/demorepo-2# touch 4.txt
+root@ip-10-50-0-7:~/demorepo-2# git add 4.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "fourth commit"
+[master 967e20d] fourth commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 4.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+967e20d (HEAD -> master) fourth commit
+eb18749 Revert "Revert "third commit""
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# git reset --soft eb18749
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   4.txt
+
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+eb18749 (HEAD -> master) Revert "Revert "third commit""
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# git reset --mixed 20d41b2
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        3.txt
+        4.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@ip-10-50-0-7:~/demorepo-2# git reset --hard 20d41b2
+HEAD is now at 20d41b2 Revert "third commit"
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        3.txt
+        4.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@ip-10-50-0-7:~/demorepo-2# git reflog
+20d41b2 (HEAD -> master) HEAD@{0}: reset: moving to 20d41b2
+20d41b2 (HEAD -> master) HEAD@{1}: reset: moving to 20d41b2
+eb18749 HEAD@{2}: reset: moving to eb18749
+967e20d HEAD@{3}: commit: fourth commit
+eb18749 HEAD@{4}: reset: moving to eb18749
+b2e92b1 HEAD@{5}: commit: fourth commit
+eb18749 HEAD@{6}: revert: Revert "Revert "third commit""
+20d41b2 (HEAD -> master) HEAD@{7}: revert: Revert "third commit"
+d3f273a HEAD@{8}: commit: third commit
+259e4f6 HEAD@{9}: commit: second commit
+a2e9483 HEAD@{10}: commit (initial): first commit
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt
+root@ip-10-50-0-7:~/demorepo-2# touch 5.txt
+root@ip-10-50-0-7:~/demorepo-2# git add 5.txt
+root@ip-10-50-0-7:~/demorepo-2# git commit -m "fifth commit"
+[master 907b6c3] fifth commit
+ Committer: venu <root@ip-10-50-0-7.us-east-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 5.txt
+root@ip-10-50-0-7:~/demorepo-2# git log --oneline
+907b6c3 (HEAD -> master) fifth commit
+20d41b2 Revert "third commit"
+d3f273a third commit
+259e4f6 second commit
+a2e9483 first commit
+root@ip-10-50-0-7:~/demorepo-2# ls
+1.txt  2.txt  3.txt  4.txt  5.txt
+root@ip-10-50-0-7:~/demorepo-2# git branch
+* master
+root@ip-10-50-0-7:~/demorepo-2# git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        3.txt
+        4.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@ip-10-50-0-7:~/demorepo-2# cd ..
+root@ip-10-50-0-7:~# ls
+demorepo-2  demorepo1  snap
+root@ip-10-50-0-7:~# cd demorepo1
+root@ip-10-50-0-7:~/demorepo1# git log --oneline
+d0263b0 (HEAD -> dev-1, origin/main, main) second commit
+7baaed5 first commit
+5012de0 Initial commit
+root@ip-10-50-0-7:~/demorepo1# cd
+root@ip-10-50-0-7:~# rm -rd demorepo1
+root@ip-10-50-0-7:~# ls
+demorepo-2  snap
+root@ip-10-50-0-7:~# git clone -b git@github.com:venugopal0975/demorepo1.git
+fatal: You must specify a repository to clone.
+
+usage: git clone [<options>] [--] <repo> [<dir>]
+
+    -v, --verbose         be more verbose
+    -q, --quiet           be more quiet
+    --progress            force progress reporting
+    -n, --no-checkout     don't create a checkout
+    --bare                create a bare repository
+    --mirror              create a mirror repository (implies bare)
+    -l, --local           to clone from a local repository
+    --no-hardlinks        don't use local hardlinks, always copy
+    -s, --shared          setup as shared repository
+    --recursive ...       alias of --recurse-submodules
+    --recurse-submodules[=<pathspec>]
+                          initialize submodules in the clone
+    -j, --jobs <n>        number of submodules cloned in parallel
+    --template <template-directory>
+                          directory from which templates will be used
+    --reference <repo>    reference repository
+    --reference-if-able <repo>
+                          reference repository
+    --dissociate          use --reference only while cloning
+    -o, --origin <name>   use <name> instead of 'origin' to track upstream
+    -b, --branch <branch>
+                          checkout <branch> instead of the remote's HEAD
+    -u, --upload-pack <path>
+                          path to git-upload-pack on the remote
+    --depth <depth>       create a shallow clone of that depth
+    --shallow-since <time>
+                          create a shallow clone since a specific time
+    --shallow-exclude <revision>
+                          deepen history of shallow clone, excluding rev
+    --single-branch       clone only one branch, HEAD or --branch
+    --no-tags             don't clone any tags, and make later fetches not to follow them
+    --shallow-submodules  any cloned submodules will be shallow
+    --separate-git-dir <gitdir>
+                          separate git dir from working tree
+    -c, --config <key=value>
+                          set config inside the new repository
+    --server-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+    --filter <args>       object filtering
+    --remote-submodules   any cloned submodules will use their remote-tracking branch
+    --sparse              initialize sparse-checkout file to include only files at root
+
+root@ip-10-50-0-7:~# git clone -b dev-1 git@github.com:venugopal0975/demorepo1.git
+Cloning into 'demorepo1'...
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 9 (delta 0), reused 6 (delta 0), pack-reused 0
+Receiving objects: 100% (9/9), done.
+root@ip-10-50-0-7:~# ls
+demorepo-2  demorepo1  snap
+root@ip-10-50-0-7:~# git btanch
+git: 'btanch' is not a git command. See 'git --help'.
+
+The most similar command is
+        branch
+root@ip-10-50-0-7:~# cd demorepo1
+root@ip-10-50-0-7:~/demorepo1# ls
+1.txt  2.txt  3.txt  README.md
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch dev-1
+Your branch is up to date with 'origin/dev-1'.
+
+nothing to commit, working tree clean
+root@ip-10-50-0-7:~/demorepo1# cd
+root@ip-10-50-0-7:~# git clone -b dev-1 git@github.com:venugopal0975/demorepo1.git
+fatal: destination path 'demorepo1' already exists and is not an empty directory.
+root@ip-10-50-0-7:~# ls
+demorepo-2  demorepo1  snap
+root@ip-10-50-0-7:~# cd demorepo1
+root@ip-10-50-0-7:~/demorepo1# ls
+1.txt  2.txt  3.txt  README.md
+root@ip-10-50-0-7:~/demorepo1# git status
+On branch dev-1
+Your branch is up to date with 'origin/dev-1'.
+
+nothing to commit, working tree clean
+root@ip-10-50-0-7:~/demorepo1#

@@ -1,0 +1,53 @@
+INstall Maven on RedHat Linux :
+
+1)yum install java-11-openjdk-devel
+
+2)java --version
+
+3)cd /opt
+4) yum install wget -y
+5) wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+6) tar zxf apache-maven-3.8.4-bin.tar.gz
+7) cd /opt/apache-maven-3.8.4/bin
+8) export PATH=$PATH:/opt/apache-maven-3.8.4/bin
+9) mvn --version
+
+10)Creating an directory structure 
+//samle project to test
+11)mvn archetype:generate
+    groupid:general
+    artifactid:sample
+    version:0.1.0
+    package: 
+  cd sample
+12) yum install tree -y 
+
+13)tree
+14)mvn compile
+15)mvn test
+16)tree
+17)mvn package
+18)tree
+
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.55/bin/apache-tomcat-9.0.55.tar.gz
+tar zxf  apache-tomcat-9.0.55.tar.gz
+cd apache-tomcat-9.0.55
+cd bin
+./startup.sh
+
+cp petclinic.war /opt/apache-tomcat-9.0.55/webapps/
+
+=================================================================
+Working with real project
+
+1) yum install git -y
+2) git clone https://github.com/pritamkhose/Petclinc.git
+3) cd Petclinic
+4) tree
+5) mvn compile
+6) mvn test
+7)
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.55/bin/apache-tomcat-9.0.55.tar.gz
+
+

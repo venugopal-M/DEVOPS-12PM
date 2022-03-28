@@ -1,0 +1,116 @@
+Ansible Roles :
+
+1)Ansible roles are consists of many playbooks,which is similar to module in puppet and cook books in cheff.
+ the same in ansible as roles.
+
+2)Roles are a way to group multiple tasks togather into one container to do the automation in very effective manner with clean directory structure.
+
+3)Roles are set of tasks and additional files for a certain role which allows you to break up the configurations.
+
+4)It can easily reuse the codes by anyone if the role is suitable to someone.
+
+5)It can be easily modify and will reduce the syntax errors.
+
+
+Ansible Galaxy is a repository for Ansible Roles that are available to drop 
+directly into your Playbooks to streamline your automation projects.
+
+1)Launch 2 Ec2 Instances
+	1)Ansible Master
+	2)Ansible Slave
+
+Login to Ansible Master
+
+2) apt-get update -y
+3) apt-get install python -y
+4) apt-get install ansible -y
+5) ssh-keygen -t rsa -b 4096
+6) cat id_rsa.pub
+     -copy text from here and paste in Authorizedkey in Ansible-Slave
+7) cd
+8) ssh 10.50.1.64
+exit
+9) cd /etc/ansible/
+ls
+10) nano hosts
+  [webservers]
+  slave1 ansible_ssh_host= <slave1-private-ip-address>
+11) cd
+-------------------------------------
+12) ansible -m ping all
+
+13) cd  /etc/ansible/
+
+14) mkdir roles
+15) cd roles
+16) sudo apt install tree
+
+17) sudo ansible-galaxy init web --offline
+
+18) tree web
+19) cd web
+20) cd tasks
+21) ls
+22) nano main.yml
+    #tasks file for apache
+ - include: install.yml
+ - include: configure.yml
+ - include: service.yml
+23) sudo nano install.yml
+---
+  -
+   apt: "name=apache2 state=latest"
+   name: "Install Apache"
+24)sudo nano configure.yml
+---
+   - name: Configure Websiteservic
+     copy: src=index.html dest=/var/www/html
+25)sudo nano service.yml
+---
+  - name: Start apache2 service
+    service: name=apache2 state=started
+
+26)cd /etc/ansible/roles/web/ cd files
+27)sudo nano index.html
+<html>
+<body>
+<center>
+<h1> Welcome to Sample web </h1>
+</body>
+</html>
+28)cd /etc/ansible > sudo nano site.yml
+---
+-
+  hosts: webservers
+  roles:
+    - web
+29)sudo ansible-playbook site.yml --syntax-check
+30)sudo ansible-playbook site.yml
+31) Open Browser , check with Ansible-slave DNS
+========================================================================
+Ansible Roles :
+
+-Roles simplifies writing complex playbooks
+-Roles allows you to reuse common configuration steps between different types of servers.
+-Roles are flexible and easily modified.
+
+-new_role
+	-default (Folder) : Store data about the role , also store default variable.
+		|_main.yaml
+	-files(Folder)    : stores the file that needs to be pushed to the remote machine.
+	-handlers(Folder) : tasks that get triggered from some action.
+		|_main.yaml
+	-meta (folder): meta data means data about data,Information about auther,supported platforms and dependecies.
+	  |_main.yaml
+ -tasks (Fol) :Contains main list of tasks to be executed by the role.
+ 		|_main.yaml
+ -templates  : contains templates which can be deployed via this role.
+ -tests  :
+ 		|_inventory
+		|_test.yaml
+ -vars   : Stores variables with higher priority than default variablea.Difficult to override.
+ 		|_main.yaml
+
+
+sudo apt-get remove apache2
+sudo apt-get purge apache2

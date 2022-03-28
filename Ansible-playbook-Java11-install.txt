@@ -1,0 +1,28 @@
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        update_cache: true
+      become: true
+      name: "Update APT package manager repositories cache"
+    - 
+      apt: 
+        name: "{{ packages }}"
+        state: present
+      become: true
+      name: "Install Java using Ansible"
+      vars: 
+        packages: 
+          - openjdk-11-jdk
+
+
+
+
+Run :
+
+ ansible-playbook pbook2.yml
+
+ ansible-playbook pbook2.yml --limit @/root/pbooks/pbook2.retry
+

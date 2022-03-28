@@ -1,0 +1,116 @@
+
+git Initial commit
+
+git branch------to find the branch
+
+git remote -v 
+
+ssh-keygen
+
+cd .ssh
+
+cat id_rsa.pub
+
+git checkout dev-1
+
+--------------------
+git remote add arigin git@github.com:seat12/demorepo1.git ----To attach to the putty---git bash in this cmd
+
+git config --global user.email"venu@gmail.com"
+
+git config --global user.name "venu"
+--------------------------------
+
+git remote remove origin
+
+git log 
+
+git log --oneline------log are single line
+
+git commit -m "first commit"
+
+git reflog -------- show the all data how many time edit to the files
+
+git status
+
+git branch -m (branch name )------ to forward to the one branch to anther branch
+
+git fetch origin
+
+git branch -u origin/<BRANCH> <BRANCH>
+
+git remote set-head origin -a
+
+git push origin dev-1 ---- the files are push to the dev-1 branch
+
+git branch -D dev-2------delete the branch
+---------------------------------------------
+how to clone to the git reepositary
+
+git reflog
+
+git reset --soft ----(revot id)
+
+git reset --mixed  ---(revotid)
+
+git reset --hard  -----(revotid)
+
+git revort
+
+rm -rd (repositary name)
+
+git clone -b (branch name---main branch url)
+
+git init -----local to central repo
+
+-------------------------------------------------------
+
+what is the differences b/w git fetch and git pull?
+
+git pull origin (branchname)------- to come to the updated files----get the updates
+
+git clone (url)-------before saved files to come
+
+git fetch  --- get the data --- nevar do an action
+(git pull=git fetch+gitmerge);
+
+git stash ----Temp commit
+
+git stash list
+
+git stash pop 
+
+git stash clear
+
+git cheery-pick (anther branch id)
+
+git diff (id)
+
+git diff Head~2 (to show the data last commit2)
+
+[git squash]
+
+git checkout master----To move one branch to onther branchs
+
+git branch dev-1
+
+git push origin master
+
+------------------------------------------
+
+git config --global --edit
+
+git merge (branch name)-----historicaliy comes to the data step by step
+
+git rebase (branch name)----- do not comes historicaliy but data is same directly comes to the out put
+
+git show (last commit id)-------show for the data 
+
+git log --graph --pretty=oneline
+
+git merge tool -----manualiy to push the data for the main branch
+
+-------------------------------------------------------------------
+
+
+

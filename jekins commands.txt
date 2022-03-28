@@ -1,0 +1,40 @@
+#! /bin/bash
+
+sudo apt-get update
+sudo apt install ca-certificates
+sudo apt-get install openjdk-11-jdk -y
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt install jenkins
+
+
+
+-------------------------------------------------------------------------
+nano jinstall.sh
+
+ls -ll jinstall.sh
+
+chmod +x jinstall.sh
+
+./jinstall.sh--------packages are install 
+
+cd /var/lib/jenkins/workspace
+
+ls
+
+cd job-1
+
+ls
+
+pwd
+
+open browser http://public-ip:8080
+
+cat /var/lib/jenkins/secrets/initialadminpassword
+
+------------------
+http://3.135.213.18:8080/github-webhook/
+
+http://venu:11fd8a507e7fa46317e4ac6f1774237557@3.135.213.18:8080/job/job-2/build?token=welcometogithubtokenizedwebhookdemo
+

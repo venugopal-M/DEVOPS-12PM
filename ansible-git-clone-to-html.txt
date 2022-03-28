@@ -1,0 +1,23 @@
+---
+-
+  hosts: slave1
+  tasks:
+
+  - name: "Remove the existing dir"
+    shell: sudo rm -rf /var/www/html
+  - name: "Create new dir"
+    shell: sudo mkdir /var/www/html
+
+  -
+      git:
+         repo: "https://github.com/shashikanth-t/digital"
+         dest: /var/www/html
+         update: yes
+      become: yes
+      become_user: root
+      name: "Ensure repo is up-to-date"
+
+
+
+
+Note:install git package on remote machine

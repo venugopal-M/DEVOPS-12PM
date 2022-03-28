@@ -1,0 +1,111 @@
+
+-----To communicate two or more server at a single server------
+
+apt-get install python -y
+
+python --version
+
+apt-get install ansible -y
+
+ansible --version
+
+cd .ssh
+
+ssh-keygen
+
+ls
+
+cat id_rsapub ---- [privat key past to ather servers] 
+
+-----------------------------
+ansible -m ping slave
+
+ansible -m ping slave1
+
+ansible -m ping all
+
+slave1 ansible_ssh_host=10.50.1.244  -------server private ip 
+
+slave2 ansible_ssh_host=10.50.2.181
+
+ansible-playbook users.yml  --syntax-check
+
+
+
+------------------add ho comands-----
+
+ansible webservers -m shell -a "uptime"
+
+ansible webservers -m apt -a "name=apache2 state=present"
+
+ansible slave1 -m apt -a "name=nginx state=present"
+
+ansible slave1 -m service  -a "name=nginx state=started"
+
+ansible slave1 -m service -a "name=nginx state=stopped"
+
+ansible slave1 -m service  -a "name=nginx state=absent"------[terminated to the services]
+
+
+ansible slave2 -m yum -a "name=httpd state=present"  ----[install packages]
+
+ansible slave2 -m service  -a "name=httpd state=started"
+
+cd /tmp
+
+ls
+
+ansible webservers -m copy -a "src=/root/testfile dest=/tmp/testfile"
+
+ansible webservers -m file -a "dest=/tmp/demo state=directory"
+
+ cd /etc/ansible/
+
+--------------------------------host mechaine dont permistions to create to the another hosts machine--------------
+
+[webservers]
+slave1 ansible_ssh_host=10.50.1.148
+slave2 ansible_ssh_host=10.50.2.132
+
+ansible -m ping all
+
+nano myhosts 
+
+ansible -i /root/myhosts testservers -m ping 
+
+ansible -i /root/myhosts slave1 -m ping 
+
+ansible -i /root/myhosts all -m setup
+
+-------------------------------Ansible vault commands----------------------
+
+ansible-vault encrypt users.yml
+
+cat users.yml
+
+nano users.yml
+
+ansible-vault view users.yml
+
+ansible-vault edit users.yml
+
+ansible-vault decrypt users.yml
+
+ansible-vault rekey users.yml
+
+ansible-playbook users.yml
+
+ansible-playbook users.yml --ask-vault-pass
+
+ansible-playbook users.yml --vault-passord-file /root/ansible/vault-passwd
+
+
+
+
+
+
+
+
+
+
+
