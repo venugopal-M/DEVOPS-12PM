@@ -1,11 +1,7 @@
-AWS accout: 
-PASSWD:
-
 1. SDLC --software devopment life cycle
 
 2. SCM -- Source code mangement
 ---------------------------------
-
 1) Git
 2) Docker
 3)Assinble
@@ -13,7 +9,6 @@ PASSWD:
 5) maven
 6) Jenkins
 7) Nagios
-
 ------
 SDLC :
 
@@ -26,26 +21,20 @@ b. Splint pointing -- finalized to the task
 c. standup meting
    splint grooveming
     retro meting
-github account:
-passs:
 ----------------------------------
-
 version control sytem
 
 1. Destibuted version control system
 
 2. central version control system
-
 -working dir -> To the files-> to convert to the local Repogitory
 
 staging area 
 untracked area
 git init
-
 -----------------------------------
 Git commands
 ------------
-
 git Initial commit
 
 git branch------to find the branch
@@ -185,13 +174,9 @@ what type of branching statagy flows in this company
 1. Git flow
 2. Feature branching statagy
 3. splint branching
-----------------------three are same conditions-----
+----------------------Three are same conditions-----
 Docker
---------
-docker account :
-pass:
 ----------------
-
 sudo apt-get install docker.io -y
 
 docker --version
@@ -226,13 +211,12 @@ docker start (CONTAINER ID)
 docker rm (CONTAINER ID)
 
 docker rmi (image id)
-doc
+
 docker rm -f (CONTAINER ID)
 
 docker login
 
 docker push (user name /image name) 
-
 ---------------------------------------------
 DOCKER File 
 -------
@@ -241,14 +225,11 @@ RUN apt-get update -y
 RUN apt-get install apache2 -y
 ENTRYPOINT apachectl -D FOREGROURD
 ADD . /var/www/html
-
 --------
 docker build. -t filename
 -------------
-
 without permistion to clone for the git hub account from the user
 ------------------------
-
 FROM ubuntu:16.04
 RUN apt-get update -y &&\
     apt-get -y install apache2 && \
@@ -256,13 +237,9 @@ RUN apt-get update -y &&\
 RUN cd /var/www/html && \
     git clone https://github.com/venugopal0975/digital.git
 ENTRYPOINT apachectl -D FOREGROUND
----------------------
-
-
+--------------------
 docker build . -t filename
 -------------
-
-
 docker kill (container id)----- to stop the container
 
 docker container rm -f $(docker container ps -aq)--------multipul ccontainer remove at a time
@@ -288,17 +265,14 @@ linux top
 
 copying file from docker container to local machine
 
- docker cp centos:/etc/passwd /root/demo2/centos.passwd
-
+docker cp centos:/etc/passwd /root/demo2/centos.passwd
 ---------------------------------------
-
 1.docker file --multipule CMD
 
 CMD statement1
 CMD STATEMENT2
 
 O/P : Statement2
-
 
 2. docker file --multiple CMD --- runtime args
 
@@ -332,18 +306,12 @@ ENTRYPOINT statement1
 CMD statement1
 
 o/p: statement2 welcome to aws  welcome to devops
-
 ------------------------------------------------------
-
 docker exec containerid bash
-
 docker attach os1
 --------------------------------------
 CMD
-
 Dockerfile1
-
-
 FROM ubuntu:16.04
 RUN apt-get update -y
 CMD echo "hello world"
@@ -416,7 +384,6 @@ docker service scale nginx_srv=1 ------ decreses to the containers down the serv
 docker service create --name digital_srv --replicas 3 -p 85:80 venugopal0975/digital
 
 use this link : https://docs.docker.com/engine/reference/commandline/swarm/
-
 ------------------------------------------------------------------
 jenkins docker file
 -------
@@ -430,7 +397,6 @@ sudo docker run --name knights -it -p 83:80 -d new
 docker compose
 ---------------
 apt-get install docker.io -y
-
 -----------------------------
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -454,11 +420,9 @@ services:
     ports:
       - "82:80"
 version: "3"
-
 -------------------------------
 docker run -it -p 83:80 --name web1 -d hshar/webapp ------- directly to build to the images and container
 ---------------------------------
-
 docker-compose up -d
 
 docker images
@@ -529,7 +493,6 @@ docker network create bridge-3 --driver=bridge
 172.19.0.0/16
 
 172.20.0.0/16
-
 -----------
 docker network create --driver=bridge --subnet=10.150.10.0/24 bridge-4
 
@@ -609,9 +572,6 @@ docker inspect --format='{{json .NetworkSettings.Networks}}'  web
 
 Then, get the IP address of your web
  docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' os1
-
-
-------------------------------------------------------------------
 ------------------------------------------------------------------
 docker network ls
 
@@ -638,7 +598,6 @@ docker network inspect bridge
 >docker network inspect myNetwork
 >docker container run -p --name myapp  --network muNetwork -p 8080:80 <image-name/id>
 >docker container ps -a
->
 
 >To remove the my_bridge1 network
  docker network rm my_bridge1
@@ -750,7 +709,6 @@ spec:
         ports:
         - containerPort: 80
 
-
 kubectl create -f nginx.yml
 kubectl get pods
 
@@ -772,7 +730,6 @@ curl 10.97.82.35:82
 -------------------------------------------------
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.35.0/deploy/static/provider/baremetal/deploy.yaml
-
 
 demo1.yml
 ----------------------------------------------
@@ -805,9 +762,6 @@ kubectl create -f demo1.yml
 kubectl get ing
 kubectl  get svc  --all-namespaces
 kubectl get svc -n ingress-nginx
-
-
-
 
  Refer below link for K8S Dashboard.
  https://github.com/kubernetes/dashboard
@@ -892,8 +846,6 @@ Why do we use Ansible ?
 7)Ansible usses YAML Syntax in configuration files.
 8)Larger community
 
-
-
 Configure Master - Slave :
 --------------------------------
 
@@ -941,7 +893,6 @@ d)ansible -m ping slave1
 e)ansible -m ping slave2
 f)ansible -m ping all
 
-
 Ad-hoc commands :
 ----------------------
 1)To know uptime
@@ -964,13 +915,11 @@ Webserver(Tomcat) Installation and uninstallation:
   ansible slave2 -m service -a "name=httpd state=stopped"  
 6)ansible slave2 -m yum -a "name=httpd state=absent"
 
-
 Ansible Playbooks :
 ---------------------
 
 -Ansible Playbooks are writen in yaml/yml.
 -In yaml tabs are not allowed,it allows only spaces.
--
 
 -create a new ansible-playbook 
 -get syntax check
@@ -986,7 +935,6 @@ b)nano play.yaml
 slave1 ansible_ssh_host=10.50.1.79
 
 ansible-playbook pbook3.yml --syntax-check
-
 
 ------------------------------------------------------------------- 
 ---
@@ -1625,11 +1573,9 @@ Developer will commit his changes to GIT that triggers Jenkins pipeline job  it 
 and it is going to build docker image,upload docker image to docker hub.
 Using Ansible playbook 	 Deploy docker container to a development Server
 ======================================================================================================
-
 jenkins-deploy-Tomcat
  How to deploy artifact into tomcat webserver :
  -------------------------------------------
-
 
 Step -1 : Launch Ec2 Instance (ubuntu 16.0)
 
@@ -1658,8 +1604,6 @@ Step -1 : Launch Ec2 Instance (ubuntu 16.0)
 	cd
 	sudo nano /etc/sudoers
 	 jenkins ALL=(ALL) NOPASSWD: ALL
-
-
 
 -Install Maven plugin and ssh-agent plugin
 
@@ -1726,8 +1670,6 @@ cd /opt/apache-tomcat-9.0.59/conf
 nano server.xml
           <Connector port="8090" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
 
-
-
 find / -name context.xml
 
 -- do same in manager,host-manager 
@@ -1749,7 +1691,6 @@ Update users information in the tomcat-users.xml file goto tomcat home directory
  <user username="deployer" password="deployer" roles="manager-script"/>
  <user username="tomcat" password="tomcat1" roles="manager-gui"/>
 
-
  cd  /opt/apache-tomcat-8.5.35/bin
  ./shutdown.sh
 ./startup.sh
@@ -1757,7 +1698,6 @@ Update users information in the tomcat-users.xml file goto tomcat home directory
 Open Browser 
 http://<Public_IP>:8090
 manager login credentials : tomcat/s3cret
-
 
 --------terminal---------
 sudo su - 
@@ -1775,7 +1715,6 @@ Step-3 : Create Maven Project (Job-1)
 
 -Add Git Url (https://github.com/shashikanth-t/mwebrepo.git)
 -add Maven goals : clean install package
-
 
 Step-4 : 
 
@@ -1829,7 +1768,6 @@ sudo apt-get install jenkins -y
 		sudo service jenkins stop
 		sudo apt-get remove --purge jenkins ]
 
-	
 	ssh-keygen
 	cd .ssh
 	ls
@@ -1877,7 +1815,6 @@ export PATH=${M2_HOME}/bin:${PATH}
 	MAVEN_HOME	 : /opt/maven/apache-maven-3.6.3
 
 Jenkins > Manage Plugins > SSH agent > install without restart
--------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 Step-2 : Launch Amazon EC2 (AMI Linux 2) As Jenkins WorkerNode
@@ -1945,7 +1882,6 @@ cd
  	<user username="deployer" password="deployer" roles="manager-script"/>
  	<user username="tomcat" password="s3cret" roles="manager-gui"/>
 
-
  	cd  /opt/apache-tomcat-8.5.35/bin
  	./shutdown.sh
 	./startup.sh
@@ -1965,7 +1901,6 @@ ps -ef | grep tomcat
 
  chown -R ec2-user:ec2-user /opt
 -----------------------------
-
 
 pipeline {
     agent any
@@ -2169,12 +2104,11 @@ pipeline{
       }
     }
 
-==========================================================================================================================================================
+========================================================================================================================================
 Nagios ---monitaring tool 
 ----------------------------
 Nagios Installation Steps:
 ==================
-
 sudo apt-get update
 sudo apt-get install wget build-essential unzip openssl libssl-dev
 sudo apt-get install apache2 php libapache2-mod-php php-gd libgd-dev
@@ -2215,7 +2149,6 @@ sudo systemctl start nagios.service
 sudo systemctl restart nagios.service
 sudo systemctl status nagios.service
 
-
 Master-Slave Config:
 
 On master:
@@ -2243,7 +2176,6 @@ http://54.202.172.165/nagios
 
 	nagiosadmin/nagiosadmin
 	
-
 on slave node:
 ----------------
 sudo apt-get install nagios-nrpe-server nagios-plugins
@@ -2251,7 +2183,6 @@ sudo nano /etc/nagios/nrpe.cfg
   server_address=3.15.237.143 //Nagios Master Public ip address
 
 sudo /etc/init.d/nagios-nrpe-server restart
-
 
 Adding Services on Master Node:no worker node
 -------------------------------------
@@ -2310,9 +2241,6 @@ define service {
 }
      sudo systemctl restart nagios
 
-
-
-
 Note :
 
  Check on the browser .
@@ -2325,36 +2253,8 @@ Start apache2 on slave node
 
   check on browser "Services"
 
-==============================================completed==============================================================================================
+==============================================completed=================================================================================
 sonarcube ---monitaring Tool pending
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
