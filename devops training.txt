@@ -1,0 +1,121 @@
+DEVOPS
+
+-----------
+SDLC----Software development life cycle
+
+SCM---- Source code management
+
+TOOLS
+---------
+1. Git
+
+2. Docker
+
+3. kubernets
+
+4. Ansible
+
+5. maven
+
+6. Jenkins
+-----------
+
+SDLC--- Software development life cycle
+
+1.grooming mettig ----( client information, projet inforrmation,available team master in next scrum master is knowlege of all fields
+
+2.spint pointing meting-----to finalized to the task ---- min durtion 30mints-- max50 mints
+
+3.standup meting
+
+4.sprint grooming
+
+5.retro meting
+--------
+github account; venugopal0975---(p-0975venugopal)
+
+docker hub account;venugopal0975--(p-venu@0975)
+
+--------------------------
+
+1. Destibuted version control system
+
+2. central version control system
+
+3.introduction of github ---- create repositary ----adding files local to central repositary ----- to save the desktop github file adding and removing in the file to change to the central repositary---you can delete repositary to the setting deleing repositary name -----ok
+
+4.TO connect to the ec2 instances---- local repositary to central repositary --- To push the files Git hub account 
+
+5.undo operations-revart operations----- revart & revart operations ----- restart (soft,mixed,hard) functions----how to move to the main floder to sub floders to push the flies---- how to delete repositary-how to recollect flies------NP
+
+6.git commands----git pull origin (branch name)----- git clone ----git fetch ------git stash----git stash list --- git stash pop ----git stash clear ----- git cherry-pick (anther branch id)----git diff (id)------git diff Head~2-----git squash
+
+7.git commands---- git merge and rebase (branch name)-- git  show (last commit id)----git log --graph --pretty =oneline------git merge tool--(manualiy to push the data in main branch)
+
+---------------------------------------------------------------------
+
+1.docker introduction
+
+2. docker---- life cycle ---- to push to the container images in dockerhub account
+
+3. docker ---centous (single attmpt to all packages install to the container fallow to the command)
+
+4.docker file
+
+5.file system permitions------
+
+6.docker voilume---mount point & binmount creation
+
+7.docker-compose logs & binomunt process
+
+8.docker networks
+
+9.docker swarm ------monolithic application-----microservices application
+
+------------------------------------------------------------------------------------------------------------------------------
+kubernutes
+
+1. kubernutes installation 
+
+2. kubernutes node port, custer ip, Load balencer,ingress services to deploy the apllication-----use the kubectl commands
+
+3. kubernutes dash board  creation to deploy the custom application to the dash board
+
+4. AWS KMS Vedio
+
+--------------------------------------------------------------------------------------
+Ansible
+
+1. Ansible theory ,Ansible installation
+
+2. Ansible playbook creation
+
+3. Ansible installation packages to the playbook
+
+4. Ansible rolles
+
+5. no of playbooks to consider how to consider 1 or 2 playbooks
+
+6. Ansible Adhoc commands
+
+---------------------------------------------------------------------------
+Maven
+
+1. Maven theory 
+
+2. Maven installation 
+
+3. To deploy to the sample java application
+
+-----------------------------------------------------------------------------
+Jenrkins
+
+1. 
+
+
+
+
+
+
+
+

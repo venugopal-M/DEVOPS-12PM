@@ -1,0 +1,2389 @@
+AWS accout: thulashamma9951@gmail.com------GOPAL
+PASSWD:0975V***********************************L
+
+1. SDLC --software devopment life cycle
+
+2. SCM -- Source code mangement
+
+
+1) Git
+2) Docker
+3)Assinble
+4) kurbernutes
+5) maven
+6) Jenkins
+7) Nagios
+
+------
+SDLC :
+
+1) Assile process 
+
+a. grooveming meting ( client information , project information available team master in next
+
+b. Splint pointing -- finalized to the task
+    dureation 30-50 mints
+c. standup meting
+   splint grooveming
+    retro meting
+github account:venugopal-M 
+passs:0975venugopal
+----------------------------------
+
+version control sytem
+
+1. Destibuted version control system
+
+2. central version control system
+
+-working dir -> To the files-> to convert to the local Repogitory
+
+staging area 
+untracked area
+git init
+
+-----------------------------------
+Git commands
+------------
+
+git Initial commit
+
+git branch------to find the branch
+
+git remote -v 
+
+ssh-keygen
+
+cd .ssh
+
+cat id_rsa.pub
+
+git checkout dev-1
+
+--------------------
+git remote add arigin git@github.com:seat12/demorepo1.git ----To attach to the putty---git bash in this cmd
+
+git config --global user.email"venu@gmail.com"
+
+git config --global user.name "venu"
+--------------------------------
+
+git remote remove origin
+
+git log 
+
+git log --oneline------log are single line
+
+git commit -m "first commit"
+
+git reflog -------- show the all data how many time edit to the files
+
+git status
+
+git branch -m (branch name )------ to forward to the one branch to anther branch
+
+git fetch origin
+
+git branch -u origin/<BRANCH> <BRANCH>
+
+git remote set-head origin -a
+
+git push origin dev-1 ---- the files are push to the dev-1 branch
+
+git branch -D dev-2------delete the branch
+---------------------------------------------
+how to clone to the git reepositary[undo operations]
+
+git reflog
+
+git reset --soft ----(revot id)
+
+git reset --mixed  ---(revotid)
+
+git reset --hard  -----(revotid)
+
+git revort
+
+rm -rd (repositary name)
+
+git clone -b (branch name---main branch url)
+
+git init -----local to central repo
+
+-------------------------------------------------------
+
+what is the differences b/w git fetch and git pull?
+
+git pull origin (branchname)------- to come to the updated files----get the updates
+
+git clone (url)-------before saved files to come
+
+git fetch  --- get the data --- nevar do an action
+(git pull=git fetch+gitmerge);
+
+git stash ----Temp commit
+
+git stash list
+
+git stash pop 
+
+git stash clear
+
+git cheery-pick (anther branch id)
+
+git diff (id)
+
+git diff Head~2 (to show the data last commit2)
+
+[git squash]
+
+git checkout master----To move one branch to onther branchs
+
+git branch dev-1
+
+git push origin master
+
+------------------------------------------
+[Git merge & Rebase]
+
+git config --global --edit
+
+git merge (branch name)-----historicaliy comes to the data step by step
+
+git rebase (branch name)----- do not comes historicaliy but data is same directly comes to the out put
+
+git show (last commit id)-------show for the data 
+
+git log --graph --pretty=oneline
+
+git merge tool -----manualiy to push the data for the main branch
+
+-------------------------------------------------------------------
+1. pull request   ---- git commit am "Newcommit"
+
+2. git branching statagy
+
+a. TRunk based : single branch devlopment
+   main branch : developer will interact with main branch it happens with SVN
+
+b.Feature branching statagy:
+  1. Devlopers work on feature and mearges with main branch
+  2. it for shorts relase
+
+c. Forking: For opensources , only we can maintance we can it modify main branch
+
+d. Relese Branching : under main branch , we have release with backword compatability
+   suitable large projects
+
+e. Git Flow : we will Have main branch >dev branch> feature branches with release branches
+
+f. Environment branching : 
+   main branch->dev branch -> staging -> testing --> production
+
+what type of branching statagy flows in this company
+
+1. Git flow
+2. Feature branching statagy
+3. splint branching
+----------------------three are same conditions-----
+Docker
+--------
+docker account :venugopal0975
+pass:venu@0975
+----------------
+
+sudo apt-get install docker.io -y
+
+docker --version
+
+docker pull ubuntu
+
+docker images
+
+docker run -it --name web4 -p 84:80 -d venugopal0975/knights
+
+Note: -d demanized mode means run in background
+
+docker container ps
+
+docker exec -it (CONTAINER ID) bash
+ex : docker exec -it 76971f8eb701 bash
+
+docker commit 384b179180e8 venugopal0975/digital ------docker images
+
+apt-get install docker.io -y
+
+cp -r * /var/www/html /root/knights
+
+docker ps -a
+
+docker ps
+
+docker stop (CONTAINER ID)
+
+docker start (CONTAINER ID)
+
+docker rm (CONTAINER ID)
+
+docker rmi (image id)
+doc
+docker rm -f (CONTAINER ID)
+
+docker login
+
+docker push (user name /image name) 
+
+---------------------------------------------
+DOCKER File 
+-------
+FROM ubuntu:16.04
+RUN apt-get update -y
+RUN apt-get install apache2 -y
+ENTRYPOINT apachectl -D FOREGROURD
+ADD . /var/www/html
+
+--------
+docker build. -t filename
+-------------
+
+without permistion to clone for the git hub account from the user
+------------------------
+
+FROM ubuntu:16.04
+RUN apt-get update -y &&\
+    apt-get -y install apache2 && \
+    apt-get install -y git
+RUN cd /var/www/html && \
+    git clone https://github.com/venugopal0975/digital.git
+ENTRYPOINT apachectl -D FOREGROUND
+---------------------
+
+
+docker build . -t filename
+-------------
+
+
+docker kill (container id)----- to stop the container
+
+docker container rm -f $(docker container ps -aq)--------multipul ccontainer remove at a time
+----------
+docker - compose logs
+
+docker info----- deteils information comes
+
+docker log container id --details
+
+--------------docker attach-----
+docker info
+
+docker run --help
+
+docker run -dit --name centos --hostname=centos centos /bin/bash
+
+docker attach centos
+
+docker start centos
+
+linux top
+
+copying file from docker container to local machine
+
+ docker cp centos:/etc/passwd /root/demo2/centos.passwd
+
+---------------------------------------
+
+1.docker file --multipule CMD
+
+CMD statement1
+CMD STATEMENT2
+
+O/P : Statement2
+
+
+2. docker file --multiple CMD --- runtime args
+
+CMD statement1
+CMD STATEMENT2
+
+docker run -it app echo 'welcome to aws'
+o/p welcome to aws 
+
+3.docker file --- multiple entrypoint
+
+ENTRYPOINT statement1
+
+ENTRYPOINT statement2
+
+O/P : statement2
+
+4.Docker file --- multiple entrypoint---runtime args
+
+ENTRYPOINT statement1
+
+ENTRYPOINT statement2
+
+docker run -it app2 'welcome to aws'
+o/p: statement2 welcome to aws
+
+5.Docker file --- multiple entrypoint---runtime args
+
+ENTRYPOINT statement1
+
+CMD statement1
+
+o/p: statement2 welcome to aws  welcome to devops
+
+------------------------------------------------------
+
+docker exec containerid bash
+
+docker attach os1
+--------------------------------------
+CMD
+
+Dockerfile1
+
+
+FROM ubuntu:16.04
+RUN apt-get update -y
+CMD echo "hello world"
+CMD echo "welcome To AWS"
+
+docker build . -t app1
+
+docker run -it app1
+
+docker run -it app1 echo "welcome to docker"
+
+Dockerfile2
+
+FROM ubuntu:16.04
+RUN apt-get update -y
+ENTRYPOINT [ "echo", "hello world"]
+ENTRYPOINT ["echo", "welcome To AWS"]
+
+docker build . -t app2
+
+docker run -it app2
+
+docker run -it app2 echo "welcome to docker"
+
+summary:
+------
+CMD overriden
+
+Entrypoint overriden
+
+Entrypoint and CMD appendable
+
+---------------- docker volume & bindmount --------
+docker volume create vol-1
+
+docker volume ls
+
+docker run -it -p 83:80 --mount "source=vol-1,destination=/var/www/html" --name web1 -d digital
+
+docker volume inspect vol-1 ----howmuch storage files utilized to the volume 
+
+docker run -it -v /root/demo:/var/www/html --name web3 -p 86:80 -d knights----- bindmount------one time one way direction( second time two way direction)
+
+docker run -it -p 82:80 --name web4 -d knights
+
+---------------------------------------------------docker swarm-----
+
+1. Monolithic Application
+
+2. Micro services
+
+docker swarm init --advertise-addr=10.50.3.193-------token genarated ---go to putty & run 
+
+docker swarm leave
+
+docker node ls
+
+docker swarm join-token worker------token missing again recollect the tocken
+
+docker service create --name nginx_srv --replicas 3 -p 83:80 nginx
+
+docker ps
+
+docker rm -f (master node/worker node id)----- change to the status 
+
+docker service scale nginx_srv=10------to increses to the container to equal to worker noads to marster nodes
+
+docker service scale nginx_srv=1 ------ decreses to the containers down the services
+
+docker service create --name digital_srv --replicas 3 -p 85:80 venugopal0975/digital
+
+use this link : https://docs.docker.com/engine/reference/commandline/swarm/
+
+------------------------------------------------------------------
+jenkins docker file
+-------
+sudo usermod -aG docker jenkins
+sudo docker pull ubuntu
+sudo docker run -it -d ubuntu
+sudo docker  rm -f $(sudo docker ps -a -q)
+sudo docker build /home/ubuntu/jenkins/workspace/mjob-1/ -t new
+sudo docker run --name knights -it -p 83:80 -d new
+--------------------------------
+docker compose
+---------------
+apt-get install docker.io -y
+
+-----------------------------
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+docker-compose --version
+
+not-----------------------------
+applicatin-1
+
+docker-compose.yml
+-------------------------
+---
+services:
+  sample1:
+    image: httpd
+    ports:
+        - "80:80"
+  sampple2:
+    image: nginx
+    ports:
+      - "82:80"
+version: "3"
+
+-------------------------------
+docker run -it -p 83:80 --name web1 -d hshar/webapp ------- directly to build to the images and container
+---------------------------------
+
+docker-compose up -d
+
+docker images
+
+docker ps
+
+check in the browser
+--------------------
+---
+service:
+  db:
+    image: hshar/mysql:5.6
+    volume:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: inteli
+      MYSQL_DATEBASE: docker
+      MYSQL_USER: root
+      MYSQL_PASSWORD: inteli
+  webapp:
+    depends_on:
+      - db
+    image: hshar/webapp 
+    ports:
+      - "8000:80"
+
+volumes:
+    db_data:
+------------------------------------------
+docker-compose up -d
+
+docker images
+
+docker ps
+check in the browser
+
+docker-compose.yml
+
+see https://docs.docker.com/compose/compose-file/
+
+----------------
+docker network
+-----------------
+apt-get install docker.io -y
+
+docker network ls
+
+docker network inspect bridge
+
+172.17.0.0/16
+
+ docker run -it -p 82:80 --name os2 -d ubuntu
+
+172.17.0.2/16---os1
+
+172.17.0.3/16---os2
+-----own bridge----
+
+docker network create bridge-1
+
+docker network create -d bridge bridge-2
+
+docker network create bridge-3 --driver=bridge
+
+172.18.0.0/16
+
+172.19.0.0/16
+
+172.20.0.0/16
+
+-----------
+docker network create --driver=bridge --subnet=10.150.10.0/24 bridge-4
+
+10.150.10.0/24
+
+docker run -it --name 0s3 --network bridge-4 -p 83:80 -d ubuntu-----container lanuch
+
+10.150.10.2/24---os3
+
+docker run -it --name os4 -p 84:80 -d ubuntu
+
+docker network connect bridge-4 os4
+
+172.17.0.3 ---os2
+
+172.17.0.4/16--os4(bridge)
+
+10.150.10.3/24---os4(bridge-4)
+
+docker network disconnect bridge os4
+
+docker exec -it b54b00d180a6 bash
+
+apt-get install iputils-ping -y
+
+docker network prune----unused
+
+https://docs.docker.com/engine/tutorials/networkingcontainers/
+
+docker inspect --format='{{json .NetworkSettings.Networks}}'  os4   ----detail information comes
+
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' os1-----only ip adress display
+---------------------------------------------------------------------------------------------------------------------
+Docker Network commands :
+---------------------------------
+Step #1
+
+1)docker network ls
+2)docker run -itd --name=test ubuntu
+3) docker network inspect bridge
+4)docker network disconnect bridge test
+5)docker network inspect bridge
+  
+6)
+  docker network create my_bridge
+  (or)
+  docker network create -d bridge bridge-2
+  (or)
+  docker network create bridge-3 --driver=bridge
+
+docker network create --driver=bridge --subnet=192.168.10.0/24 my_bridge4
+
+7)docker network connect my_bridge test
+8)docker images
+9) docker container ps
+10)docker network inspect my_bridge
+11)docker run -d --net=my_bridge --name web  <image-name>
+12) docker network prune
+13) docker network rm <network-name>
+   Note: network should not contain any containers
+ ================================================
+Step#2
+
+docker run -it -d --name=myserver --network my_bridge -p 83 hshar/webapp
+docker network inspect my_bridge
+ docker ps
+ docker exec -it  438ddb48c388 bash
+apt-get install iputils-ping -y
+ping <another container ip address>
+
+
+docker run -d --net=my_bridge --name db training/postgres
+docker inspect --format='{{json .NetworkSettings.Networks}}'  db
+
+docker run -d --name web training/webapp python app.py
+docker inspect --format='{{json .NetworkSettings.Networks}}'  web
+
+Then, get the IP address of your web
+ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' os1
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+docker network ls
+
+ip addr show
+
+docker image pull httpd 
+docker image ls
+
+docker container run -d  --name myapache -p 80:80 httpd
+
+docker container ps
+
+docker network inspect bridge
+
+>bridge network is default network
+>It access to the external server as well as docker server.
+>docker network create myNetwork
+>docker network inspect myNetwork
+>docker image pull redis:latest
+>//eg : docker network create myNetwork --driver=host
+>docker network ls
+>docker image pull <image-name>
+>docker container run -d --name myredis --network myNetwork redis:alpine
+>docker network inspect myNetwork
+>docker container run -p --name myapp  --network muNetwork -p 8080:80 <image-name/id>
+>docker container ps -a
+>
+
+>To remove the my_bridge1 network
+ docker network rm my_bridge1
+
+>To Remove un used networks 
+docker network prune
+
+>To remove all running contaniers
+ docker container  rm -f $(docker container ps -aq)
+------------------------------------------
+(https://docs.docker.com/engine/tutorials/networkingcontainers/)
+-------------------------------------------------------------------
+kubernetes Installation : kubeadm 1.20 :
+
+1) Launch kubernetesMaster (ubuntu 20.04,t2.medium) and Kubernetes WN (ubuntu 20.04,t2.micro)
+
+2)https://docs.docker.com/engine/install/ubuntu/
+
+3)Set up the repository
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+4)
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+5)
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+6)
+ sudo apt-get update
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+7)
+apt-cache madison docker-ce
+
+9)
+sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
+
+sudo apt-get install docker-ce=5:19.03.12~3-0~ubuntu-focal  containerd.io
+
+10)
+sudo docker run hello-world
+11)
+service docker restart
+12)
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+13)
+echo "deb http://apt.kubernetes.io/kubernetes-xenial main" /etc/apt/sources.list.d/kubernetes.list
+14)
+apt-get update 
+15)
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+16)
+sudo apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00
+--------------------------------------------------------------------------------------------------------------------
+17) 
+kubeadm init --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU
+
+token : paste this token on workerNode
+
+kubeadm join 192.168.1.38:6443 --token wyvi94.7an5j71dkd0n64d1 \
+    --discovery-token-ca-cert-hash sha256:001274a7163182957fd7325f7eb0348bdc14fa71f35e6162febb8871c1f33911
+--------------------------------------------------------------------------
+
+18)
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+19)
+sudo kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+20)
+kubectl get nodes
+
+21)
+kubectl get pods --all-namespaces
+
+Master :
+1)nano nginx.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+
+
+kubectl create -f nginx.yml
+kubectl get pods
+
+kubectl  get po  --all-namespaces
+kubectl get po -o wide
+
+-----------------------------------------------
+kubectl create service clusterip nginx --tcp=80:80
+curl <cluster-ip-address>
+(or)
+kubectl delete service nginx
+kubectl create service nodeport nginx --tcp=80:80
+(or)
+kubectl delete service nginx
+kubectl create service loadbalancer nginx --tcp=80:80
+
+kubectl create service clusterip httpd --tcp=82:80
+curl 10.97.82.35:82
+-------------------------------------------------
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.35.0/deploy/static/provider/baremetal/deploy.yaml
+
+
+demo1.yml
+----------------------------------------------
+--- 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata: 
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: demo-ingress
+spec: 
+  rules: 
+    - 
+      http: 
+        paths: 
+          - 
+            backend: 
+              serviceName: nginx
+              servicePort: 80
+            path: /nginx
+          - 
+            backend: 
+              serviceName: httpd
+              servicePort: 82
+            path: /httpd
+
+-----------------------------------------------
+
+kubectl create -f demo1.yml
+kubectl get ing
+kubectl  get svc  --all-namespaces
+kubectl get svc -n ingress-nginx
+
+
+
+
+ Refer below link for K8S Dashboard.
+ https://github.com/kubernetes/dashboard
+
+ 1) kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+ 2) kubectl get svc -n kubernetes-dashboard
+ 3) kubectl edit svc -n kubernetes-dashboard
+    Note: change type from clisterIP to Nodeport
+ k8s-app: kubernetes-dashboard
+ sessionAffinity: None
+ type: NodePort
+ status:
+ loadBalancer: {}
+ kind: List
+ metadata: {}
+
+ 4)Now Generate token :
+   i)create two yml files (sa.yml,crb.yml)
+
+#create service account
+ sa.yml
+ -------
+--- 
+apiVersion: v1
+kind: ServiceAccount
+metadata: 
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+#Bind ClusterAdmin Role to the service account
+
+ crb.yml
+ --------
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: ClusterRoleBinding
+ metadata:
+   name: admin-user
+ roleRef:
+   apiGroup: rbac.authorization.k8s.io
+   kind: ClusterRole
+   name: cluster-admin
+ subjects:
+ - kind: ServiceAccount
+   name: admin-user
+   namespace: kubernetes-dashboard
+
+   >kubectl create -f sa.yml
+   >kubectl create -f crb.yml
+   >kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+
+   kubectl -n kubernetes-dashboard get service kubernetes-dashboard
+ on Browser
+   k8s-master-public-ip:Nodeport
+   copy token from terminal and paste on browser
+
+-------
+aws eks --region us-east-2 update-kubeconfig --name eks-demo1
+--------------------------------------------------------------------------
+
+What is Ansible ?
+------------------------
+Ansible is a opensource Automation Platform.
+It is simple,efficient and powerfull.
+Ansible can perform :
+1.Configuration Management
+2.Application Deployment
+3.Task Automation
+4.IT Orchestration
+
+Ansible is available for free and runs on Linux,Mac or BSD.
+Ansible also has an enterprise product called "Ansible Tower". 
+
+
+Why do we use Ansible ?
+-----------------------------
+1)Ansible is an open source
+2)Agentless
+3)Developed using python
+4)Ansible uses SSH for the operations
+5)System requirement is very low.
+6)Light weight and quick deployment
+7)Ansible usses YAML Syntax in configuration files.
+8)Larger community
+
+
+
+Configure Master - Slave :
+--------------------------------
+
+1)Launch 2 EC2 ubuntu Instance with user data
+
+#! /bin/bash
+sudo su
+cd
+sudo apt-get update –y
+sudo apt-get install python -y
+
+2)Login to master
+apt-get update -y
+apt-get install ansible -y
+ansible --version
+
+2)for Password less authentication run below commands in master
+
+a)ssh-keygen -t rsa -b 4096
+b)cd .ssh
+c)cat  id_rsa.pub
+ note:copy the text from pub file
+
+4)Login to remote/slave machine
+a)python --version
+b)cd .ssh
+c)nano authorized_keys
+  note:paste the copied text here
+  
+5)Login to master
+  a)ssh <private-ip-address>
+
+#How to configure Slave/Remote machines
+
+1)Login to master machines
+a)cd /etc/ansible/
+b)ls
+c)nano hosts
+
+  [webservers]
+  slave1 ansible_ssh_host=<slave1-private-ip-address>
+  slave2 ansible_ssh_host=<slave2-private-ip-address>
+
+d)ansible -m ping slave1
+e)ansible -m ping slave2
+f)ansible -m ping all
+
+
+Ad-hoc commands :
+----------------------
+1)To know uptime
+ansible webservers -m shell -a "uptime"
+
+2)To transfer File from Manager Node to Worker Node:
+ansible webservers -m copy -a "src=/home/shashi/testfile dest=/tmp/testfile"
+ansible webservers -m file -a "dest=/tmp/demo123 state=directory"
+
+3)To create directory in workernode (create user1 in worker node)
+  ansible test -m file -a "dest=/home/user1/demo mode=777 owner=user1 group=user1 state=directory"
+
+4)Deleting a directory in worker node
+  ansible webservers -m file -a "dest=/tmp/demo123 state=absent"
+
+Webserver(Tomcat) Installation and uninstallation:
+5)ansible slave2 -m yum -a "name=httpd state=present"
+  ansible slave2 -m service -a "name=httpd state=started"
+
+  ansible slave2 -m service -a "name=httpd state=stopped"  
+6)ansible slave2 -m yum -a "name=httpd state=absent"
+
+
+Ansible Playbooks :
+---------------------
+
+-Ansible Playbooks are writen in yaml/yml.
+-In yaml tabs are not allowed,it allows only spaces.
+-
+
+-create a new ansible-playbook 
+-get syntax check
+-run playbook (if we use default host file)
+- ansible-playbook  playbook1.yml  --syntax-check
+
+2)create a working directory
+
+a)mkdir ansible
+b)nano play.yaml
+-----------------
+
+slave1 ansible_ssh_host=10.50.1.79
+
+ansible-playbook pbook3.yml --syntax-check
+
+
+------------------------------------------------------------------- 
+---
+-
+  become: true
+  hosts: slave1
+  name: play1
+  tasks:
+    -
+      apt: "name=apache2 state=latest"
+      name: "Install Apache Server"
+    -
+      name: "Start Apache Server"
+      service: "name=apache2 state=restarted"
+
+-------------------------------------------------------------------
+
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: "/home/ubuntu/{{ item }}"
+        src: "{{ item }}"
+      name: "copy file to remote host"
+      with_items: 
+        - test_file1
+        - test_file2
+        - test_file3
+
+--------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: /home/ubuntu/test_dir
+        src: test_dir/
+      name: "copy dir to remote host"
+
+---------------------------------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      fetch: 
+        dest: feteched1/
+        src: "/home/ubuntu/{{ item }}"
+      name: "fetch test_file"
+      with_items: 
+        - test_file1
+        - test_file2
+--------------------------------------------------------
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      fetch: 
+        dest: feteched2/
+        flat: true
+        src: "/home/ubuntu/{{ item }}"
+      name: "fetch test_file"
+      with_items: 
+        - test_file1
+        - test_file2
+
+----------------------------------------------------------
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+     
+      name: "Stop apache2 Services"
+      service: 
+        name: apache2
+        state: stopped
+
+-------------------------------------------------------------
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+     
+      name: "Stop apache2 Services"
+      service: 
+        name: apache2
+        state: started
+
+---------------------------------------------------------------
+//UnInstalling apache2 package
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        name: apache2
+        state: absent
+      name: "Uninstall apache2"
+
+--------------------------------------------------------------------
+copy dir
+--- 
+- 
+  become: true
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      copy: 
+        dest: /home/ubuntu/demo10
+        src: demo10/
+      name: "copy dir to remote host"
+
+---------------------------------------------------------------
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      name: " Adding Users"
+      user: 
+        comment: venu
+        createhome: true
+        name: venu
+        passswd: venu@123
+        shell: /bin/bash
+    - 
+      copy: 
+        content: "its a confidential Ageement between an employee & employer\n"
+        dest: /home/venu/ageement
+      name: "copying confidential Ageement"
+
+------------------------------------------------------------------------------------------------
+
+---
+-
+  hosts: slave1
+  tasks:
+
+  - name: "Remove the existing dir"
+    shell: sudo rm -rf /var/www/html
+  - name: "Create new dir"
+    shell: sudo mkdir /var/www/html
+
+  -
+      git:
+         repo: "https://github.com/shashikanth-t/digital"
+         dest: /var/www/html
+         update: yes
+      become: yes
+      become_user: root
+      name: "Ensure repo is up-to-date"
+
+Note:install git package on remote machine
+
+---------------------------------------------------------------------------------------------
+
+#1
+
+--- 
+- 
+  become: true
+  hosts: slave2
+  tasks: 
+    - 
+      name: "Install packages"
+      yum: 
+        name: httpd
+        state: present
+    - 
+      name: "Start Apache Server"
+      sevevice: 
+        enabled: true
+        name: httpd
+        state: started
+    - 
+      copy: 
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+
+------------------------------------------------------------------------------------------------------
+#2
+
+---
+-
+  become: true
+  hosts: slave1
+  tasks:
+    -
+      name: "Install pacages"
+      tags:
+        - install
+      apt:
+        name: apache2
+        state: present
+    -
+      name: "Start Apache Server"
+      service:
+        enabled: true
+        name: apache2
+        state: started
+      tags:
+        - start
+    -
+      copy:
+        dest: /var/www/html/
+        src: index.html
+      name: "Deploy static website"
+      tags:
+        - deploy
+
+----------------------------------------------------------------------------------------------------------
+jenkins
+-------------
+---
+ - hosts: slave1
+
+   tasks:
+    - name: ensure the jenkins apt repository key is installed
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+      become: yes
+
+    - name: ensure the repository is configured
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+      become: yes
+
+    - name: ensure jenkins is installed
+      apt: name=jenkins update_cache=yes
+      become: yes
+
+    - name: ensure jenkins is running
+      service: name=jenkins state=started
+
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+java
+
+--- 
+- 
+  hosts: slave1
+  tasks: 
+    - 
+      apt: 
+        update_cache: true
+      become: true
+      name: "Update APT package manager repositories cache"
+    - 
+      apt: 
+        name: "{{ packages }}"
+        state: present
+      become: true
+      name: "Install Java using Ansible"
+      vars: 
+        packages: 
+          - openjdk-11-jdk
+
+-------------------------------------------------------------------------------------------
+play1.yml
+Templates
+
+--- 
+- 
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      become: true
+      name: "template file on to remote hosts"
+      template: 
+        dest: /etc/my_app.conf
+        src: my_app.conf.j2
+  vars: 
+    env: staging
+-----------------------------------------------------------------------------------
+play2.yml
+
+--- 
+- 
+  hosts: slave1
+  name: play1
+  tasks: 
+    - 
+      become: true
+      name: "template file on to remote hosts"
+      template: 
+        dest: /etc/my_app.conf
+        group: root
+        mode: 0600
+        owner: root
+        src: my_app.conf.j2
+  vars: 
+    env: staging
+------------------------------------------------------------------------
+play3.yml
+--- 
+- 
+  hosts: slave1
+  name: play1
+  vars: 
+    env: Developement
+    my_app_version: v1.1.2
+  tasks: 
+    - 
+      name: "template file on to remote hosts"
+      template: 
+        dest: "/etc/{{ item }}"
+        group: root
+        mode: 0600
+        owner: root
+        src: "{{ item }}.j2"
+      become: true
+      with_items:
+       - my_app.conf
+       - my_app-release
+
+------------------------------------------------------------------------
+
+Ansible Roles :
+
+1)Ansible roles are consists of many playbooks,which is similar to module in puppet and cook books in cheff.
+ the same in ansible as roles.
+
+2)Roles are a way to group multiple tasks togather into one container to do the automation in very effective manner with clean directory structure.
+
+3)Roles are set of tasks and additional files for a certain role which allows you to break up the configurations.
+
+4)It can easily reuse the codes by anyone if the role is suitable to someone.
+
+5)It can be easily modify and will reduce the syntax errors.
+
+
+Ansible Galaxy is a repository for Ansible Roles that are available to drop 
+directly into your Playbooks to streamline your automation projects.
+
+1)Launch 2 Ec2 Instances
+	1)Ansible Master
+	2)Ansible Slave
+
+Login to Ansible Master
+
+2) apt-get update -y
+3) apt-get install python -y
+4) apt-get install ansible -y
+5) ssh-keygen -t rsa -b 4096
+6) cat id_rsa.pub
+     -copy text from here and paste in Authorizedkey in Ansible-Slave
+7) cd
+8) ssh 10.50.1.64
+exit
+9) cd /etc/ansible/
+ls
+10) nano hosts
+  [webservers]
+  slave1 ansible_ssh_host= <slave1-private-ip-address>
+11) cd
+-------------------------------------
+12) ansible -m ping all
+
+13) cd  /etc/ansible/
+
+14) mkdir roles
+15) cd roles
+16) sudo apt install tree
+
+17) sudo ansible-galaxy init web --offline
+
+18) tree web
+19) cd web
+20) cd tasks
+21) ls
+22) nano main.yml
+    #tasks file for apache
+ - include: install.yml
+ - include: configure.yml
+ - include: service.yml
+23) sudo nano install.yml
+---
+  -
+   apt: "name=apache2 state=latest"
+   name: "Install Apache"
+24)sudo nano configure.yml
+---
+   - name: Configure Websiteservic
+     copy: src=index.html dest=/var/www/html
+25)sudo nano service.yml
+---
+  - name: Start apache2 service
+    service: name=apache2 state=started
+
+26)cd /etc/ansible/roles/web/ cd files
+27)sudo nano index.html
+<html>
+<body>
+<center>
+<h1> Welcome to Sample web </h1>
+</body>
+</html>
+28)cd /etc/ansible > sudo nano site.yml
+---
+-
+  hosts: webservers
+  roles:
+    - web
+29)sudo ansible-playbook site.yml --syntax-check
+30)sudo ansible-playbook site.yml
+31) Open Browser , check with Ansible-slave DNS
+========================================================================
+Ansible Roles :
+
+-Roles simplifies writing complex playbooks
+-Roles allows you to reuse common configuration steps between different types of servers.
+-Roles are flexible and easily modified.
+
+-new_role
+	-default (Folder) : Store data about the role , also store default variable.
+		|_main.yaml
+	-files(Folder)    : stores the file that needs to be pushed to the remote machine.
+	-handlers(Folder) : tasks that get triggered from some action.
+		|_main.yaml
+	-meta (folder): meta data means data about data,Information about auther,supported platforms and dependecies.
+	  |_main.yaml
+ -tasks (Fol) :Contains main list of tasks to be executed by the role.
+ 		|_main.yaml
+ -templates  : contains templates which can be deployed via this role.
+ -tests  :
+ 		|_inventory
+		|_test.yaml
+ -vars   : Stores variables with higher priority than default variablea.Difficult to override.
+ 		|_main.yaml
+
+
+sudo apt-get remove apache2
+sudo apt-get purge apache2
+---------------------------------------------------------------------
+INstall Maven on RedHat Linux :
+
+1)yum install java-11-openjdk-devel
+
+2)java --version
+
+3)cd /opt
+4) yum install wget -y
+5) wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+
+6) tar zxf apache-maven-3.8.4-bin.tar.gz
+7) cd /opt/apache-maven-3.8.4/bin
+8) export PATH=$PATH:/opt/apache-maven-3.8.4/bin
+9) mvn --version
+
+10)Creating an directory structure 
+//samle project to test
+11)mvn archetype:generate
+    groupid:general
+    artifactid:sample
+    version:0.1.0
+    package: 
+  cd sample
+12) yum install tree -y 
+
+13)tree
+14)mvn compile
+15)mvn test
+16)tree
+17)mvn package
+18)tree
+
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.59/bin/apache-tomcat-9.0.59.tar.gz
+tar zxf  apache-tomcat-9.0.59.tar.gz
+cd apache-tomcat-9.0.59
+cd bin
+./startup.sh
+
+cp petclinic.war  \apach-tomcat-9.0.59\webapps
+=================================================================
+Working with real project
+
+1) yum install git -y
+2) git clone https://github.com/pritamkhose/Petclinc.git
+3) cd Petclinic
+4) tree
+5) mvn compile
+6) mvn test
+7)
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.55/bin/apache-tomcat-9.0.55.tar.gz
+===================================================================================
+jenkins
+-------
+
+#! /bin/bash
+
+sudo apt-get update
+sudo apt install ca-certificates
+sudo apt-get install openjdk-11-jdk -y
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt install jenkins
+
+
+
+-------------------------------------------------------------------------
+nano jinstall.sh
+
+ls -ll jinstall.sh
+
+chmod +x jinstall.sh
+
+./jinstall.sh--------packages are install 
+
+cd /var/lib/jenkins/workspace
+
+ls
+
+cd job-1
+
+ls
+
+pwd
+
+open browser http://public-ip:8080
+
+cat /var/lib/jenkins/secrets/initialadminpassword
+
+------------------
+http://3.135.213.18:8080/github-webhook/
+
+http://venu:11fd8a507e7fa46317e4ac6f1774237557@3.135.213.18:8080/job/job-2/build?token=welcometogithubtokenizedwebhookdemo
+
+https://dzone.com/articles/jenkins-03-configure-master-and-slave
+----------------------------------------------------------------------------------
+jenkins-Ansible-pipeline
+-------------------------
+
+CI/CD using GIT --- Jenkins ---- Ansible   
+
+===========================Environment Setup===========================================================
+
+Step#1 : Install Jenkins Server on Amazon Linux2
+
+1)Launch AmazonLinux2 as Jenkins Server
+
+a)sudo yum -y update
+
+b)sudo amazon-linux-extras install java-openjdk11
+
+c)java --version
+
+d)
+sudo tee /etc/yum.repos.d/jenkins.repo<<EOF
+[jenkins]
+name=Jenkins
+baseurl=http://pkg.jenkins.io/redhat
+gpgcheck=0
+EOF
+
+e)sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+f)sudo yum repolist
+
+g)sudo yum install jenkins
+
+h)sudo systemctl start jenkins
+
+i) systemctl status jenkins
+
+http://[serverip_ip_or_hostname]:8080
+
+=>Install Git on Jenkins Server
+
+j)yum install git -y
+
+
+=>Install Ansible on Jenkins Server
+
+k)
+  sudo yum-config-manager --enable epel
+  sudo amazon-linux-extras install ansible2
+  ansible --version
+  which ansible
+
+2)Launch Amazon Linux2  as Jenkins Worker Node
+
+
+================================Jenkins Pipeline Setup====================================================
+
+1)Login to Jenkins DashBoard
+
+2) Install Ansible plugin
+  Go to GlobalTool configuration 
+  Ansible  : ansible
+  ansible executable directory : /usr/bin/       (which ansible)
+  Save
+
+3)Create pipeline job : ansible-demo
+
+4)pipeline script
+
+ pipeline{
+ agent any
+ stages{
+ stage('code checkout'){
+  steps{
+       git branch: 'main', url: 'https://github.com/shashikanth-t/jenkins-ansible.git'
+       }
+ }
+ stage('Execute Ansible'){
+  steps{
+     ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dhost.inv', playbook: 'apache.yml'
+       
+      }
+    }
+}
+
+
+Developer will commit his changes to GIT that triggers Jenkins pipeline job  it is going to build maven 
+and it is going to build docker image,upload docker image to docker hub.
+Using Ansible playbook 	 Deploy docker container to a development Server
+======================================================================================================
+
+jenkins-deploy-Tomcat
+ How to deploy artifact into tomcat webserver :
+ -------------------------------------------
+
+
+Step -1 : Launch Ec2 Instance (ubuntu 16.0)
+
+- Install Jenkins  and Maven
+
+1)Setup Jenkins Server
+
+	i)Launch EC2 instance ubuntu 16.04
+	
+	sudo apt-get update
+	sudo apt-get install openjdk-8-jdk -y
+	wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+	sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+	sudo apt-get update
+	sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys  9B7D32F2D50582E6
+	sudo apt-get update
+	sudo apt-get install jenkins 
+	
+	ssh-keygen
+	cd .ssh
+	ls
+	cat id_rsa.pub
+		copy text from here
+	nano authorized_keys
+		paste here
+	cd
+	sudo nano /etc/sudoers
+	 jenkins ALL=(ALL) NOPASSWD: ALL
+
+
+
+-Install Maven plugin and ssh-agent plugin
+
+#Install Maven in Jenkins Server
+----------------------------------
+	1.sudo add-apt-repository ppa:webupd8team/java
+	2.sudo apt-get update -y
+	3.sudo apt-get install oracle-java8-installer
+	4.java -version
+	5.cd /opt/
+	6. wget http://apache.mirrors.pair.com/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+	7.sudo tar -xvzf apache-maven-3.6.3-bin.tar.gz
+	8.sudo mv apache-maven-3.6.3 maven 
+	  export PATH=$PATH:/opt/maven/bin
+	--Set Up Environment Variables
+
+	9.sudo nano /etc/profile.d/mavenenv.sh
+
+	export M2_HOME=/opt/maven
+	export PATH=${M2_HOME}/bin:${PATH}
+	cd /etc/profile.d
+	10.sudo chmod +x /etc/profile.d/mavenenv.sh
+	11.source /etc/profile.d/mavenenv.sh
+	12.mvn --version
+-----------------------------------------------------------------------
+Jenkins > Manage Jenkins > Global ToolConfiguration >Maven Installation
+
+Add Maven 
+
+Name : apache-maven-3.6.3
+MAVEN_HOME	 : /opt/maven/apache-maven-3.6.3
+
+Jenkins > Manage Plugins > SSH agent > install without restart
+
+Install Deploy to container plugin
+-------------------------------------------------------------------------
+
+Step-2 : Launch Ec2 Instance (AMI Linux 2)
+#How to install tomcat server on 8.5 (link : https://acloudxpert.com/install-tomcat-on-amazon-linux/)
+-Install Tomcat 
+-Modify Port Number
+-Add Manger Credentials
+-----------------------------
+yum remove java* -y
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+
+# create tomcat directory
+cd /opt
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.59/bin/apache-tomcat-9.0.59.tar.gz
+tar zxf  apache-tomcat-9.0.59.tar.gz
+cd apache-tomcat-9.0.59
+cd bin
+chmod +x /opt/apache-tomcat-8.5.35/bin/startup.sh shutdown.sh
+
+ln -s /opt/apache-tomcat-9.0.59/bin/startup.sh /usr/local/bin/tomcatup
+ln -s /opt/apache-tomcat-9.0.59/bin/shutdown.sh /usr/local/bin/tomcatdown
+tomcatup
+
+http://<Public_IP>:8080
+--To change Tomcat Port Number 
+
+cd /opt/apache-tomcat-9.0.59/conf
+
+nano server.xml
+          <Connector port="8090" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
+
+
+
+find / -name context.xml
+
+-- do same in manager,host-manager 
+
+vi /opt/apache-tomcat-9.0.59/webapps/manager/META-INF/context.xml
+
+ <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+cd
+cd  /opt/apache-tomcat-9.0.59/conf
+nano tomcat-users.xml
+Update users information in the tomcat-users.xml file goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="tomcat1" roles="manager-gui"/>
+
+
+ cd  /opt/apache-tomcat-8.5.35/bin
+ ./shutdown.sh
+./startup.sh
+
+Open Browser 
+http://<Public_IP>:8090
+manager login credentials : tomcat/s3cret
+
+
+--------terminal---------
+sudo su - 
+cd /opt/apache-tomcat-8.5.35/bin
+ps -ef | grep tomcat
+./shutdown.sh
+ps -ef | grep tomcat
+./startup.sh
+ps -ef | grep tomcat
+
+ chown -R ec2-user:ec2-user /opt
+-----------------------------
+
+Step-3 : Create Maven Project (Job-1)
+
+-Add Git Url (https://github.com/shashikanth-t/mwebrepo.git)
+-add Maven goals : clean install package
+
+
+Step-4 : 
+
+-Manage plugin > Deploy to container 
+-Set the tomcat  credentials 
+-Manage Jenkins > Manage Credentials > Global Credentials  :- deployer/deployer 
+
+-Configure the Job-1
+-Post-build Actions : Deploy war/ear to a container 
+  
+   WAR/EAR files : **/*.war
+   context path : 
+   Container : Tomcat 8.x
+				Credentials	: deployer/deployer
+				Tomcat URL : http://3.219.215.97:8090/
+				Apply & Save
+
+-Build the Job
+
+Step-5
+
+Poll SCM : */2 * * * *
+
+Modify index.jsp in GIT Repo
+===================================================================================
+scripted-pipeline-jenkinsfile
+
+
+Req :  Deploying artifact into Tomcat Server using Jenkins Scripted Pipeline
+
+---------------------------------------------------------------------------------------
+1)Setup Jenkins Server on ubuntu18.04 (Master Node)
+
+	i)Launch EC2 instance ubuntu 18.04
+	
+
+sudo apt-get update -y
+sudo apt-get install openjdk-8-jdk -y
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update -y
+sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys  9B7D32F2D50582E6
+sudo apt-get update -y
+sudo apt-get install jenkins -y
+
+3)open browser http://public-ip:8080
+
+4)cat /var/lib/jenkins/secrets/initialAdminPassword
+
+[   Note uninstall Jenkins : 
+		sudo service jenkins stop
+		sudo apt-get remove --purge jenkins ]
+
+	
+	ssh-keygen
+	cd .ssh
+	ls
+	cat id_rsa.pub
+		copy text from here
+	nano authorized_keys
+		paste here
+	cd
+	sudo nano /etc/sudoers
+	 jenkins ALL=(ALL) NOPASSWD: ALL
+
+
+#How to Install Apache Maven on Ubuntu 18.04
+
+1.sudo add-apt-repository ppa:webupd8team/java
+2.sudo apt-get update -y
+3.sudo apt-get install oracle-java8-installer
+4.java -version
+5.cd /opt/
+6. wget http://apache.mirrors.pair.com/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+7.sudo tar -xvzf apache-maven-3.6.3-bin.tar.gz
+8.sudo mv apache-maven-3.6.3 maven 
+--Set Up Environment Variables
+
+8.1) sudo tar -xvzf apache-maven-3.6.3-bin.tar.gz
+8.2) sudo mv apache-maven-3.6.3 maven
+9.sudo nano /etc/profile.d/mavenenv.sh
+
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+	
+10.sudo chmod +x /etc/profile.d/mavenenv.sh
+11.source /etc/profile.d/mavenenv.sh
+12.apt-get install maven -y
+12.mvn --version
+13.whereis mvn
+
+2)Install Maven plugin and ssh-agent plugin
+
+	Jenkins > Manage Jenkins > Global ToolConfiguration >Maven Installation
+
+	Add Maven 
+
+	Name : apache-maven-3.6.3
+	MAVEN_HOME	 : /opt/maven/apache-maven-3.6.3
+
+Jenkins > Manage Plugins > SSH agent > install without restart
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Step-2 : Launch Amazon EC2 (AMI Linux 2) As Jenkins WorkerNode
+
+#How to install tomcat server on 8.5 (link : https://acloudxpert.com/install-tomcat-on-amazon-linux/)
+-Install Tomcat 
+-Modify Port Number
+-Add Manger Credentials
+
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+--------------------importent--------------------------------
+cd .ssh
+nano authorized_keys
+     copy id_rsa.pub file text here (from jenkins ServerNode)
+     Save and Exit
+cd
+sudo su -
+cd .ssh
+nano authorized_keys
+     copy id_rsa.pub file text here (from jenkins ServerNode)
+     Save and Exit
+cd
+---------------------------------------------------------------
+# create tomcat directory
+        
+	cd /opt
+	wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz
+	tar -xvzf /opt/apache-tomcat-8.5.35.tar.gz
+	cd apache-tomcat-8.5.35
+	cd bin
+	chmod +x /opt/apache-tomcat-8.5.35/bin/startup.sh shutdown.sh
+
+	ln -s /opt/apache-tomcat-8.5.35/bin/startup.sh /usr/local/bin/tomcatup
+	ln -s /opt/apache-tomcat-8.5.35/bin/shutdown.sh /usr/local/bin/tomcatdown
+	tomcatup
+
+	http://<Public_IP>:8080
+	--To change Tomcat Port Number 
+
+	cd /opt/apache-tomcat-8.5.35/conf
+
+	nano server.xml
+          <Connector port="8090" protocol="HTTP/1.1"   connectionTimeout="20000"  redirectPort="8443" />
+
+
+
+	find / -name context.xml
+
+	-- do same in manager,host-manager 
+
+	vi /opt/apache-tomcat-8.5.35/webapps/manager/META-INF/context.xml
+
+	 <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+	cd
+	cd  /opt/apache-tomcat-8.5.35/conf
+	nano tomcat-users.xml
+	Update users information in the tomcat-users.xml file goto tomcat home directory and Add below users to conf/tomcat-user.xml file
+ 	<role rolename="manager-gui"/>
+ 	<role rolename="manager-script"/>
+ 	<role rolename="manager-jmx"/>
+ 	<role rolename="manager-status"/>
+ 	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ 	<user username="deployer" password="deployer" roles="manager-script"/>
+ 	<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+
+ 	cd  /opt/apache-tomcat-8.5.35/bin
+ 	./shutdown.sh
+	./startup.sh
+
+Open Browser: 
+	http://<Public_IP>:8090
+	manager login credentials : tomcat/s3cret
+
+--------terminal---------
+sudo su - 
+cd /opt/apache-tomcat-8.5.35/bin
+ps -ef | grep tomcat
+./shutdown.sh
+ps -ef | grep tomcat
+./startup.sh
+ps -ef | grep tomcat
+
+ chown -R ec2-user:ec2-user /opt
+-----------------------------
+
+
+pipeline {
+    agent any
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: '2f663736-522f-4420-9da2-dcaf697631e9', url: 'https://github.com/shashikanth-t/mwebrepo.git'
+                echo 'Code Checkout done sucessfully.'
+            }
+			}
+            stage('Code build ') {
+            steps {
+            sh 'mvn clean install'
+            echo 'Code build done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		sshagent(['deploy_user']) {
+		sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war  ec2-user@18.209.28.105:/opt/apache-tomcat-8.5.35/webapps"
+						}
+				}
+				
+			}
+        }
+    }
+
+
+Login to jenkins server /var/lib/jenkins/workspace
+apt-get install tree
+tree pjob1
+
+scp <source_file> username@public-IP:<dest_path>
+
+While creating code_deploy stage 
+
+Add credentials deploy_user with private Key
+
+ssh Add Agent
+
+SSH Username with private key(.pem file)
+ID : deploy_user
+Description : deploy_user
+username :ec2-user
+private : .pem file text
+
+
+Note Before Executing this job configure 
+
+Jenkins: Git credentials
+sshagent :ec2-user(deploy_user)
+
+---------------------------------
+jenkins execuated files
+---------------------------------
+pipeline {
+    agent any
+    
+    stages {
+        stage('stage-1 ') {
+            steps {
+               
+                echo 'stage-1 done sucessfully.'
+            }
+			}
+            stage('stage-2 ') {
+            steps {
+           
+            echo 'stage-2 done sucessfully.'
+            }
+            }
+	    stage(stage-3 ') {
+            steps {
+		
+		echo 'stage-3  done sucessfully.'
+		}
+				
+			}
+        }
+    }
+
+---------------------------------------------------------------------------------------
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'stage-1 done sucessfully.'
+            }
+		}
+            stage('Code build ') {
+            steps {
+            
+            echo 'stage-2 done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		
+		echo 'stage-3 done sucessfully.'
+		}
+				
+			}
+	}
+    }
+
+
+--------------------------------------------
+
+pipeline {
+    agent any
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
+    stages {
+        stage('Code Checkout') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'code checkout done sucessfully.'
+            }
+		}
+            stage('Code Build') {
+            steps {
+            sh 'mvn clean install'
+            echo 'code build done sucessfully.'
+            }
+            }
+	    stage('Code Deploy') {
+            steps {
+		sshagent(['deploy_user']) {
+   		sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war  ec2-user@18.222.132.97:/opt/apache-tomcat-9.0.59/webapps"
+		  }
+		echo 'Stage-3 done sucessfully.'
+		}
+				
+			}
+        }
+    }
+--------------------------------------------------------------------------------------------------------------
+note : to install the maven package
+--------------------------------------------------
+pipeline {
+    agent any
+    
+    stages {
+        stage('Code Checkout ') {
+            steps {
+                git credentialsId: 'git_credentials', url: 'https://github.com/venugopal-M/mwebrepo.git'
+                echo 'Code Checkout done sucessfully.'
+            }
+		}
+            stage('Code build ') {
+            steps {
+            sh 'mvn clean install'
+            echo 'Code build done sucessfully.'
+            }
+            }
+	    stage('Code deploy ') {
+            steps {
+		
+		echo 'stage-3 done sucessfully.'
+		}
+				
+			}
+	}
+    }
+
+
+-------------------------------------------------
+
+pipeline{
+ agent any
+ stages{
+ stage('code checkout'){
+  steps{
+       git branch: 'main', url: 'https://github.com/venugopal-M/jenkins-ansible.git'
+       }
+ }
+ }
+}   
+--------------------------------------------------
+pipeline{
+ agent any
+ stages{
+ stage('code checkout'){
+  steps{
+       git branch: 'main', url: 'https://github.com/venugopal-M/jenkins-ansible.git'
+       }
+ }
+  stage('Execute Ansible'){
+      steps{
+          ansiblePlaybook credentialsId: 'ansible-wn', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dhost.inv', playbook: 'apache.yml'
+         }
+       }
+      }
+    }
+
+==========================================================================================================================================================
+Nagios ---monitaring tool 
+----------------------------
+Nagios Installation Steps:
+==================
+
+sudo apt-get update
+sudo apt-get install wget build-essential unzip openssl libssl-dev
+sudo apt-get install apache2 php libapache2-mod-php php-gd libgd-dev
+sudo adduser nagios
+sudo groupadd nagcmd
+sudo usermod -a -G nagcmd nagios
+sudo usermod -a -G nagcmd www-data
+cd /tmp
+wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
+ls
+tar xzf nagioscore.tar.gz
+cd /tmp/nagioscore-nagios-4.4.5/
+sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+sudo make all
+sudo make install
+sudo  make install-init
+sudo make install-commandmode
+sudo make install-config
+sudo make install-webconf
+sudo a2enmod rewrite
+sudo a2enmod cgi
+sudo ufw allow Apache
+sudo ufw reload
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+sudo service apache2 restart
+sudo start nagios
+sudo systemctl start nagios.service
+sudo apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+cd /tmp
+wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+tar zxf nagios-plugins.tar.gz
+cd /tmp/nagios-plugins-release-2.2.1/
+sudo ./tools/setup
+sudo ./configure
+sudo make
+sudo make install
+sudo systemctl start nagios.service
+sudo systemctl restart nagios.service
+sudo systemctl status nagios.service
+
+
+Master-Slave Config:
+
+On master:
+-----------
+cd /usr/local/nagios/etc/objects
+ls
+sudo nano localhost.cfg
+copy the host configurations
+sudo nano host1.cfg
+  define host {
+
+    use                     linux-server
+    host_name               slave1
+    alias                   nagios-nrpe
+    address                 34.217.88.72 //public ip of nagios-slave
+}
+cd ..
+ls
+sudo nano nagios.cfg
+  cfg_file=/usr/local/nagios/etc/objects/host1.cfg
+sudo systemctl restart nagios
+  Now slave1 will appear on browser
+
+http://54.202.172.165/nagios
+
+	nagiosadmin/nagiosadmin
+	
+
+on slave node:
+----------------
+sudo apt-get install nagios-nrpe-server nagios-plugins
+sudo nano /etc/nagios/nrpe.cfg
+  server_address=3.15.237.143 //Nagios Master Public ip address
+
+sudo /etc/init.d/nagios-nrpe-server restart
+
+
+Adding Services on Master Node:no worker node
+-------------------------------------
+
+ Login to Nagios Slave1 :
+   sudo apt-get install apache2
+   Check apache2 onece on browser
+
+login to master 
+
+   cd /usr/local/nagios/etc/objects
+   sudo nano host1.cfg
+   define service {
+
+       use                     generic-service           ; Name of service template to use
+       host_name               slave1
+       service_description     Check Apache
+       check_command           check_http
+   }
+
+    sudo systemctl restart nagios
+    #Now refresh the browser and check host and service
+
+    cd  /usr/local/nagios/etc/objects
+    ls
+    nano commands.cfg
+
+    define command {
+    command_name test_http
+    command_line $USER1$/check_http -I $HOSTADDRESS$ $ARG1$
+    }
+
+    sudo nano host1.cfg
+    define service{
+    use generic-service
+    host_name Slave1
+    service_description check Apache Test
+    check_command test_http
+    }
+----------------------------------------------------
+
+    sudo nano templates.cfg
+     >search by generic-service
+     check_intervel 10
+     sudo nano host1.cgf
+     sudo nano host1.cfg
+-----------------------------------------------------
+define service {
+
+    use                     generic-service           ; Name of service template to use
+    host_name               slave1
+    service_description     Check Apache
+    check_command           test_http
+    check_interval          1  
+    retry_interval          1	
+}
+     sudo systemctl restart nagios
+
+
+
+
+Note :
+
+ Check on the browser .
+
+ Stop apache2 on slave node
+
+ check on browser "Services"
+
+Start apache2 on slave node
+
+  check on browser "Services"
+
+==============================================completed==============================================================================================
+sonarcube ---monitaring Tool pending
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
