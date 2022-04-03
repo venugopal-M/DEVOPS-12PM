@@ -1,10 +1,10 @@
-AWS accout: thulashamma9951@gmail.com------GOPAL
-PASSWD:0975V***********************************L
+AWS accout: 
+PASSWD:
 
 1. SDLC --software devopment life cycle
 
 2. SCM -- Source code mangement
-
+---------------------------------
 
 1) Git
 2) Docker
@@ -26,8 +26,8 @@ b. Splint pointing -- finalized to the task
 c. standup meting
    splint grooveming
     retro meting
-github account:venugopal-M 
-passs:0975venugopal
+github account:
+passs:
 ----------------------------------
 
 version control sytem
@@ -188,8 +188,8 @@ what type of branching statagy flows in this company
 ----------------------three are same conditions-----
 Docker
 --------
-docker account :venugopal0975
-pass:venu@0975
+docker account :
+pass:
 ----------------
 
 sudo apt-get install docker.io -y
