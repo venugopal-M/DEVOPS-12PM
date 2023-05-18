@@ -32,7 +32,7 @@ SDLC--- Software development life cycle
 
 5.retro meting
 --------
-github account; venugopal0975---(p-0975venugopal)
+github account; venugopal-M---(p-venu0975)
 
 docker hub account;venugopal0975--(p-venu@0975)
 
